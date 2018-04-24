@@ -25,6 +25,10 @@
     |  - link : Link to privacy page
     |  - delay : Time before the popup is displayed after page load
     |  - expires : Days for the cookie to expire
+    |  - onAccept : Optional callback function when 'Accept' button is clicked
+    |  - uncheckBoxes : Unchecks all checkboxes on page load that have class
+    |                   .ihavecookies applied to them. Set to true to turn this
+    |                   option on
     |
     */
     $.fn.ihavecookies = function(options) {
@@ -38,7 +42,8 @@
             link: '/privacy-policy',
             delay: 2000,
             expires: 30,
-            onAccept: function(){}
+            onAccept: function(){},
+            uncheckBoxes: false
         }, options);
 
         var myCookie = getCookie('cookieControl');
@@ -57,6 +62,11 @@
             });
         } else {
             dropCookie(settings.expires);
+        }
+
+        // Uncheck any checkboxes on page load
+        if (settings.uncheckBoxes === true) {
+            $('input[type="checkbox"].ihavecookies').prop('checked', false);
         }
     };
 

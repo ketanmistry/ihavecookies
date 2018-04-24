@@ -50,8 +50,11 @@ $('body').ihavecookies({
     // Optional callback function when 'Accept' button is clicked
     onAccept: function() {
         // Do whatever you need to here...
-    }
+    },
 
+    // Unchecks all checkboxes on page load that have class .ihavecookies
+    // applied to them. Set to true to turn this option on
+    uncheckBoxes: false
 });
 ```
 
