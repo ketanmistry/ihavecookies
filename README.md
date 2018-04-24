@@ -31,7 +31,7 @@ $('body').ihavecookies({
     title: "Cookies & Privacy",
 
     // Add your own cookie message here, if you prefer not to use the
-    default one. HTML can be included within this message.
+    // default one. HTML can be included within this message.
     message: "Cookies enable you to use shopping carts and to personalize
               your experience on our sites, tell us which parts of our
               websites people have visited, help us measure the effectiveness
