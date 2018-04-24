@@ -43,13 +43,14 @@
             delay: 2000,
             expires: 30,
             onAccept: function(){},
+            onReject: function(){},
             uncheckBoxes: false
         }, options);
 
         var myCookie = getCookie('cookieControl');
         if (!myCookie) {
             // Display cookie message on page
-            var cookieMessage = '<div id="gdpr-cookie-message"><h4>' + settings.title + '</h4><p>' + settings.message +'</p><p><a href="' + settings.link + '">More information</a> <button id="gdpr-cookie-accept" type="button">Accept</button></p></div>';
+            var cookieMessage = '<div id="gdpr-cookie-message"><h4>' + settings.title + '</h4><p>' + settings.message +'</p><p><a href="' + settings.link + '">More information</a> <button id="gdpr-cookie-accept" type="button">Accept</button> <button id="gdpr-cookie-reject" type="button">Reject</button></p></div>';
             setTimeout(function(){
                 $($element).append(cookieMessage);
                 $('#gdpr-cookie-message').hide().fadeIn('slow');
@@ -57,11 +58,22 @@
 
             // When accept button is clicked drop cookie
             $('body').on('click','#gdpr-cookie-accept', function(){
-                dropCookie(settings.expires);
+                dropCookie(true, settings.expires);
                 settings.onAccept.call(this);
             });
+
+            // Reject button is clicked, run callback function
+            $('body').on('click', '#gdpr-cookie-reject', function(){
+                dropCookie(false, settings.expires);
+                settings.onReject.call(this);
+            });
+
         } else {
-            dropCookie(settings.expires);
+            var cookieVal = true;
+            if (myCookie == 'false') {
+                cookieVal = false;
+            }
+            dropCookie(cookieVal, settings.expires);
         }
 
         // Uncheck any checkboxes on page load
@@ -78,8 +90,8 @@
     | Function to drop the cookie with a boolean value of true.
     |
     */
-    var dropCookie = function(expiryDays) {
-        setCookie('cookieControl', true, expiryDays);
+    var dropCookie = function(value, expiryDays) {
+        setCookie('cookieControl', value, expiryDays);
         $('#gdpr-cookie-message').fadeOut('fast', function() {
             $(this).remove();
         });

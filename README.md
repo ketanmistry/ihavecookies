@@ -1,4 +1,4 @@
-# jQuery Cookie Consent Plugin
+# jQuery Cookie Consent Plugin (WIP)
 
 A lightweight jQuery plugin that displays a cookie &#x1F36A; consent message as required by EU regulation. The plugin displays a message on the user's first visit to your website and, by default, again 30 days after their last visit.
 
@@ -52,6 +52,11 @@ $('body').ihavecookies({
         // Do whatever you need to here...
     },
 
+    // Optional callback function when 'Reject' button is clicked
+    onReject: function() {
+        // Do whatever you need to here...
+    }
+
     // Unchecks all checkboxes on page load that have class .ihavecookies
     // applied to them. Set to true to turn this option on
     uncheckBoxes: false
@@ -64,7 +69,7 @@ The plugin doesn't include any CSS so it can be styled to fit in with your websi
 
 ### Cookie
 
-When the visitor accepts the message, the cookie `cookieControl` with value `true` is set. This will enable you to perform additional checks where necessary within your application (with regard to GDPR regulations).
+When the visitor accepts the message, the cookie `cookieControl` with value `true` is set, or `false` if it's rejected. This will enable you to perform additional checks where necessary within your application (with regard to GDPR regulations).
 
 ## Example
 
