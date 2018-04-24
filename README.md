@@ -59,7 +59,12 @@ $('body').ihavecookies({
 
     // Unchecks all checkboxes on page load that have class .ihavecookies
     // applied to them. Set to true to turn this option on
-    uncheckBoxes: false
+    uncheckBoxes: false,
+
+    // Set labels for links and buttons
+    moreInfoLabel: 'More information',
+    acceptBtnLabel: 'Accept',
+    rejectBtnLabel: 'Reject'
 });
 ```
 

@@ -15,7 +15,13 @@
             onAccept: function(){
                 alert('Yay! You clicked the accept button. This is an optional callback function that can be set on accept.');
             },
-            uncheckBoxes: true
+            onReject: function(){
+                console.log('Cookies rejected!');
+            },
+            uncheckBoxes: true,
+            acceptBtnLabel: 'Accept Cookies',
+            rejectBtnLabel: 'Reject',
+            moreInfoLabel: 'More information'
         });
     });
     </script>
@@ -138,7 +144,7 @@
         font-size: 15px;
         padding: 7px;
         border-radius: 3px;
-        margin-left: 15px;
+        margin-left: 10px;
         cursor: pointer;
         transition: all 0.3s ease-in;
     }
@@ -146,6 +152,10 @@
         background: white;
         color: var(--red);
         transition: all 0.3s ease-in;
+    }
+    button#gdpr-cookie-reject {
+        background: white;
+        color: var(--red);
     }
     </style>
 </head>

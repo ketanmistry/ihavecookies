@@ -6,7 +6,7 @@
  * Licensed under the MIT license:
  *   http://www.opensource.org/licenses/mit-license.php
  *
- * Version: 1.0
+ * Version: 1.0.2
  *
  */
 (function($) {
@@ -42,6 +42,9 @@
             link: '/privacy-policy',
             delay: 2000,
             expires: 30,
+            moreInfoLabel: 'More information',
+            acceptBtnLabel: 'Accept',
+            rejectBtnLabel: 'Reject',
             onAccept: function(){},
             onReject: function(){},
             uncheckBoxes: false
@@ -50,7 +53,7 @@
         var myCookie = getCookie('cookieControl');
         if (!myCookie) {
             // Display cookie message on page
-            var cookieMessage = '<div id="gdpr-cookie-message"><h4>' + settings.title + '</h4><p>' + settings.message +'</p><p><a href="' + settings.link + '">More information</a> <button id="gdpr-cookie-accept" type="button">Accept</button> <button id="gdpr-cookie-reject" type="button">Reject</button></p></div>';
+            var cookieMessage = '<div id="gdpr-cookie-message"><h4>' + settings.title + '</h4><p>' + settings.message +'</p><p><a href="' + settings.link + '">' + settings.moreInfoLabel + '</a> <button id="gdpr-cookie-accept" type="button">' + settings.acceptBtnLabel + '</button> <button id="gdpr-cookie-reject" type="button">' + settings.rejectBtnLabel + '</button></p></div>';
             setTimeout(function(){
                 $($element).append(cookieMessage);
                 $('#gdpr-cookie-message').hide().fadeIn('slow');
