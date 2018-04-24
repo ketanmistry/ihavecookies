@@ -37,7 +37,8 @@
             message: 'Cookies enable you to use shopping carts and to personalize your experience on our sites, tell us which parts of our websites people have visited, help us measure the effectiveness of ads and web searches, and give us insights into user behavior so we can improve our communications and products.',
             link: '/privacy-policy',
             delay: 2000,
-            expires: 30
+            expires: 30,
+            onAccept: function(){}
         }, options);
 
         var myCookie = getCookie('cookieControl');
@@ -52,6 +53,7 @@
             // When accept button is clicked drop cookie
             $('body').on('click','#gdpr-cookie-accept', function(){
                 dropCookie(settings.expires);
+                settings.onAccept.call(this);
             });
         } else {
             dropCookie(settings.expires);

@@ -45,7 +45,13 @@ $('body').ihavecookies({
     delay: 2000,
 
     // Days for the cookie to expire
-    expires: 30
+    expires: 30,
+
+    // Optional callback function when 'Accept' button is clicked
+    onAccept: function() {
+        // Do whatever you need to here...
+    }
+
 });
 ```
 
