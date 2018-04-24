@@ -44,16 +44,14 @@
             expires: 30,
             moreInfoLabel: 'More information',
             acceptBtnLabel: 'Accept',
-            rejectBtnLabel: 'Reject',
             onAccept: function(){},
-            onReject: function(){},
             uncheckBoxes: false
         }, options);
 
         var myCookie = getCookie('cookieControl');
         if (!myCookie) {
             // Display cookie message on page
-            var cookieMessage = '<div id="gdpr-cookie-message"><h4>' + settings.title + '</h4><p>' + settings.message +'</p><p><a href="' + settings.link + '">' + settings.moreInfoLabel + '</a> <button id="gdpr-cookie-accept" type="button">' + settings.acceptBtnLabel + '</button> <button id="gdpr-cookie-reject" type="button">' + settings.rejectBtnLabel + '</button></p></div>';
+            var cookieMessage = '<div id="gdpr-cookie-message"><h4>' + settings.title + '</h4><p>' + settings.message +'</p><p><a href="' + settings.link + '">' + settings.moreInfoLabel + '</a> <button id="gdpr-cookie-accept" type="button">' + settings.acceptBtnLabel + '</button></p></div>';
             setTimeout(function(){
                 $($element).append(cookieMessage);
                 $('#gdpr-cookie-message').hide().fadeIn('slow');
@@ -63,12 +61,6 @@
             $('body').on('click','#gdpr-cookie-accept', function(){
                 dropCookie(true, settings.expires);
                 settings.onAccept.call(this);
-            });
-
-            // Reject button is clicked, run callback function
-            $('body').on('click', '#gdpr-cookie-reject', function(){
-                dropCookie(false, settings.expires);
-                settings.onReject.call(this);
             });
 
         } else {

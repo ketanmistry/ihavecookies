@@ -52,19 +52,13 @@ $('body').ihavecookies({
         // Do whatever you need to here...
     },
 
-    // Optional callback function when 'Reject' button is clicked
-    onReject: function() {
-        // Do whatever you need to here...
-    }
-
     // Unchecks all checkboxes on page load that have class .ihavecookies
     // applied to them. Set to true to turn this option on
     uncheckBoxes: false,
 
     // Set labels for links and buttons
     moreInfoLabel: 'More information',
-    acceptBtnLabel: 'Accept',
-    rejectBtnLabel: 'Reject'
+    acceptBtnLabel: 'Accept'
 });
 ```
 
