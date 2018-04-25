@@ -59,6 +59,30 @@ $('body').ihavecookies({
     // Set labels for links and buttons
     moreInfoLabel: 'More information',
     acceptBtnLabel: 'Accept'
+
+    // Array of cookie types for which to show checkboxes.
+    // - type: Type of cookie. This is also the label that is displayed.
+    // - value: Value of the checkbox so it can be easily identified in
+    //          your application.
+    // - description: Description for this cookie type. Displayed in
+    //                title attribute.
+    cookieTypes: [
+        {
+            type: 'Site Preferences',
+            value: 'preferences',
+            description: 'These are cookies that are related to your site preferences, e.g. remembering your username, site colours, etc.'
+        },
+        {
+            type: 'Analytics',
+            value: 'analytics',
+            description: 'Cookies related to site visits, browser types, etc.'
+        },
+        {
+            type: 'Marketing',
+            value: 'marketing',
+            description: 'Cookies related to marketing, e.g. newsletters, social media, etc'
+        }
+    ],
 });
 ```
 

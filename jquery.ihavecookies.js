@@ -29,6 +29,9 @@
     |  - uncheckBoxes : Unchecks all checkboxes on page load that have class
     |                   .ihavecookies applied to them. Set to true to turn this
     |                   option on
+    | - moreInfoLabel : Label for the link to privacy policy
+    | - acceptBtnLabel : Label for the accept cookies button
+    | - cookieTypes : Array of cookie types to list with checkboxes
     |
     */
     $.fn.ihavecookies = function(options) {
@@ -37,21 +40,53 @@
 
         // Set defaults
         var settings = $.extend({
+            cookieTypes: [
+                {
+                    type: 'Site Preferences',
+                    value: 'preferences',
+                    description: 'These are cookies that are related to your site preferences, e.g. remembering your username, site colours, etc.'
+                },
+                {
+                    type: 'Analytics',
+                    value: 'analytics',
+                    description: 'Cookies related to site visits, browser types, etc.'
+                },
+                {
+                    type: 'Marketing',
+                    value: 'marketing',
+                    description: 'Cookies related to marketing, e.g. newsletters, social media, etc'
+                }
+            ],
             title: 'Cookies & Privacy',
             message: 'Cookies enable you to use shopping carts and to personalize your experience on our sites, tell us which parts of our websites people have visited, help us measure the effectiveness of ads and web searches, and give us insights into user behavior so we can improve our communications and products.',
             link: '/privacy-policy',
             delay: 2000,
             expires: 30,
             moreInfoLabel: 'More information',
-            acceptBtnLabel: 'Accept',
+            acceptBtnLabel: 'Accept Cookies',
             onAccept: function(){},
             uncheckBoxes: false
         }, options);
 
         var myCookie = getCookie('cookieControl');
         if (!myCookie) {
+
+            // Set the 'necessary' cookie type checkbox which can not be unchecked
+            var cookieTypes = '<li><input type="checkbox" name="gdpr[]" value="Necessary" checked="checked" disabled="disabled"> <label title="These are cookies that are essential for the website to work correctly.">Necessary</label></li>';
+
+            // Generate list of cookie type checkboxes
+            $.each(settings.cookieTypes, function(index, field) {
+                if (field.type !== '' && field.value !== '') {
+                    var cookieTypeDescription = '';
+                    if (field.description !== false) {
+                        cookieTypeDescription = ' title="' + field.description + '"';
+                    }
+                    cookieTypes += '<li><input type="checkbox" id="gdpr-cookietype-' + field.value + '" name="gdpr[]" value="' + field.value + '"> <label for="gdpr-cookietype-' + field.value + '"' + cookieTypeDescription + '>' + field.type + '</label></li>';
+                }
+            });
+
             // Display cookie message on page
-            var cookieMessage = '<div id="gdpr-cookie-message"><h4>' + settings.title + '</h4><p>' + settings.message +'</p><p><a href="' + settings.link + '">' + settings.moreInfoLabel + '</a> <button id="gdpr-cookie-accept" type="button">' + settings.acceptBtnLabel + '</button></p></div>';
+            var cookieMessage = '<div id="gdpr-cookie-message"><h4>' + settings.title + '</h4><p>' + settings.message +'</p><ul>' + cookieTypes + '</ul><p><a href="' + settings.link + '">' + settings.moreInfoLabel + '</a> <button id="gdpr-cookie-accept" type="button">' + settings.acceptBtnLabel + '</button></p></div>';
             setTimeout(function(){
                 $($element).append(cookieMessage);
                 $('#gdpr-cookie-message').hide().fadeIn('slow');
@@ -59,7 +94,17 @@
 
             // When accept button is clicked drop cookie
             $('body').on('click','#gdpr-cookie-accept', function(){
+                // Set cookie
                 dropCookie(true, settings.expires);
+
+                // Save users cookie preferences (in a cookie!)
+                var prefs = [];
+                $.each($('input[name="gdpr[]"]').serializeArray(), function(i,field){
+                    prefs.push(field.value);
+                });
+                setCookie('cookieControlPrefs', prefs, 365);
+
+                // Run callback function
                 settings.onAccept.call(this);
             });
 

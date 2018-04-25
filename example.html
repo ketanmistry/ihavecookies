@@ -13,7 +13,7 @@
             expires: 1,
             link: '#privacy',
             onAccept: function(){
-                alert('Yay! You clicked the accept button. This is an optional callback function that can be set on accept.');
+                console.log('Yay! You clicked the accept button. This is an optional callback function that can be set on accept.');
             },
             uncheckBoxes: true,
             acceptBtnLabel: 'Accept Cookies',
@@ -110,7 +110,7 @@
         font-weight: 500;
         margin-bottom: 10px;
     }
-    #gdpr-cookie-message p {
+    #gdpr-cookie-message p, #gdpr-cookie-message ul {
         color: white;
         font-size: 15px;
         line-height: 1.5em;
@@ -118,6 +118,10 @@
     #gdpr-cookie-message p:last-child {
         margin-bottom: 0;
         text-align: right;
+    }
+    #gdpr-cookie-message li {
+        width: 49%;
+        display: inline-block;
     }
     #gdpr-cookie-message a {
         color: var(--red);
@@ -140,7 +144,7 @@
         font-size: 15px;
         padding: 7px;
         border-radius: 3px;
-        margin-left: 10px;
+        margin-left: 15px;
         cursor: pointer;
         transition: all 0.3s ease-in;
     }
@@ -149,9 +153,10 @@
         color: var(--red);
         transition: all 0.3s ease-in;
     }
-    button#gdpr-cookie-reject {
-        background: white;
-        color: var(--red);
+    #gdpr-cookie-message input[type="checkbox"] {
+        float: none;
+        margin-top: 0;
+        margin-right: 5px;
     }
     </style>
 </head>
