@@ -13,12 +13,18 @@
             expires: 1,
             link: '#privacy',
             onAccept: function(){
-                console.log('Yay! You clicked the accept button. This is an optional callback function that can be set on accept.');
+                var myPreferences = $.fn.ihavecookies.cookie();
+                console.log('Yay! The following preferences were saved...');
+                console.log(myPreferences);
             },
             uncheckBoxes: true,
             acceptBtnLabel: 'Accept Cookies',
             moreInfoLabel: 'More information'
         });
+
+        if ($.fn.ihavecookies.preference('marketing') === true) {
+            console.log('This should run because marketing is accepted.');
+        }
     });
     </script>
     <link href="https://fonts.googleapis.com/css?family=Roboto+Slab|Quicksand:400,500" rel="stylesheet">

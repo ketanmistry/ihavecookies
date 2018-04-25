@@ -86,6 +86,13 @@ $('body').ihavecookies({
 });
 ```
 
+### Methods
+
+`$.fn.ihavecookies.cookie()` returns the value of the `cookieControlPrefs` cookie.
+
+`$.fn.ihavecookies.preference(cookieTypeValue)` returns `true` if the the cookie type has been accepted, otherwise `false`.
+
+
 ### Styling
 
 The plugin doesn't include any CSS so it can be styled to fit in with your websites look and feel. The cookie message has an ID of `#gdpr-cookie-message`.

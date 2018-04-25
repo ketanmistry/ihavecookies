@@ -102,7 +102,7 @@
                 $.each($('input[name="gdpr[]"]').serializeArray(), function(i,field){
                     prefs.push(field.value);
                 });
-                setCookie('cookieControlPrefs', prefs, 365);
+                setCookie('cookieControlPrefs', JSON.stringify(prefs), 365);
 
                 // Run callback function
                 settings.onAccept.call(this);
@@ -120,6 +120,23 @@
         if (settings.uncheckBoxes === true) {
             $('input[type="checkbox"].ihavecookies').prop('checked', false);
         }
+
+    };
+
+    // Method to get cookie value
+    $.fn.ihavecookies.cookie = function() {
+        var preferences = getCookie('cookieControlPrefs');
+        return JSON.parse(preferences);
+    };
+
+    // Method to check if user cookie preference exists
+    $.fn.ihavecookies.preference = function(cookieTypeValue) {
+        var preferences = getCookie('cookieControlPrefs');
+        preferences = JSON.parse(preferences);
+        if (preferences === false || preferences.indexOf(cookieTypeValue) === -1) {
+            return false;
+        }
+        return true;
     };
 
     /*
