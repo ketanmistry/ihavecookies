@@ -104,7 +104,7 @@ When the visitor accepts the message, the cookie `cookieControl` with value `tru
 
 ## Example
 
-An example of the cookie consent message can be viewed at https://iamketan.com.au.
+An example of the cookie consent message can be viewed at https://iamketan.com.au or in the accompanying `example.html` file.
 
 ## Author
 [Ketan Mistry](https://iamketan.com.au) ([@ketanumistry](https://twitter.com/ketanumistry))
