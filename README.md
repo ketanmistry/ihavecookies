@@ -58,7 +58,8 @@ $('body').ihavecookies({
 
     // Set labels for links and buttons
     moreInfoLabel: 'More information',
-    acceptBtnLabel: 'Accept'
+    acceptBtnLabel: 'Accept All Cookies',
+    advancedBtnLabel: 'Customise Cookies',
 
     // Array of cookie types for which to show checkboxes.
     // - type: Type of cookie. This is also the label that is displayed.
