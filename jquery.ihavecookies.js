@@ -70,7 +70,8 @@
         }, options);
 
         var myCookie = getCookie('cookieControl');
-        if (!myCookie) {
+        var myCookiePrefs = getCookie('cookieControlPrefs');
+        if (!myCookie || !myCookiePrefs) {
 
             // Set the 'necessary' cookie type checkbox which can not be unchecked
             var cookieTypes = '<li><input type="checkbox" name="gdpr[]" value="necessary" checked="checked" disabled="disabled"> <label title="These are cookies that are essential for the website to work correctly.">Necessary</label></li>';
