@@ -100,7 +100,7 @@ The plugin doesn't include any CSS so it can be styled to fit in with your websi
 
 ### Cookie
 
-When the visitor accepts the message, the cookie `cookieControl` with value `true` is set, or `false` if it's rejected. This will enable you to perform additional checks where necessary within your application (with regard to GDPR regulations).
+When the visitor accepts the message, the cookie `cookieControl` with value `true` is set along with cookie `cookieControlPrefs` which contains an array of accepted cookie types e.g. `["preferences","analytics"]`. This will enable you to perform additional checks where necessary within your application (with regard to GDPR regulations).
 
 ## Example
 

@@ -147,8 +147,12 @@
 
     // Method to check if user cookie preference exists
     $.fn.ihavecookies.preference = function(cookieTypeValue) {
+        var control = getCookie('cookieControl');
         var preferences = getCookie('cookieControlPrefs');
         preferences = JSON.parse(preferences);
+        if (control === false) {
+            return false;
+        }
         if (preferences === false || preferences.indexOf(cookieTypeValue) === -1) {
             return false;
         }
