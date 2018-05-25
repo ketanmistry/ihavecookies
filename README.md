@@ -60,6 +60,11 @@ $('body').ihavecookies({
     moreInfoLabel: 'More information',
     acceptBtnLabel: 'Accept All Cookies',
     advancedBtnLabel: 'Customise Cookies',
+    cookieTypesTitle: 'Select cookies to accept',
+
+    // Labels and description for the "Necessary" cookie type
+    fixedCookieTypeLabel:'Necessary',
+    fixedCookieTypeDesc: 'These are cookies that are essential for the website to work correctly.',
 
     // Array of cookie types for which to show checkboxes.
     // - type: Type of cookie. This is also the label that is displayed.
