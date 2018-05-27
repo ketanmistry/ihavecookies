@@ -8,14 +8,14 @@ The visitor __must__ click the accept button within the popup for the cookie to 
 
 Download the latest version and include it within your page along with jQuery (1.7.4 or later).
 
-```
+```html
 <script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/2.x.x/jquery.min.js"></script>
 <script type="text/javascript" src="jquery.ihavecookies.min.js"></script>
 ```
 
 Then initialise the plugin using:
 
-```
+```js
 $('body').ihavecookies();
 ```
 
@@ -25,18 +25,18 @@ This will append the cookie popup to the `<body>` tag with the default settings 
 
 There are a number of options available to help with customisation:
 
-```
+```js
 $('body').ihavecookies({
     // A custom title for the popup
     title: "Cookies & Privacy",
 
     // Add your own cookie message here, if you prefer not to use the
     // default one. HTML can be included within this message.
-    message: "Cookies enable you to use shopping carts and to personalize
-              your experience on our sites, tell us which parts of our
-              websites people have visited, help us measure the effectiveness
-              of ads and web searches, and give us insights into user
-              behavior so we can improve our communications and products.",
+    message: "Cookies enable you to use shopping carts and to personalize" +
+             "your experience on our sites, tell us which parts of our" +
+             "websites people have visited, help us measure the effectiveness" +
+             "of ads and web searches, and give us insights into user" +
+             "behavior so we can improve our communications and products.",
 
     // Link to your privacy policy for more information
     link: "/privacy-policy",
