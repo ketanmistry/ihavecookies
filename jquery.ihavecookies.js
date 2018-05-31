@@ -124,6 +124,7 @@
                 } else {
                     $('input[name="gdpr[]"][data-auto="on"]').prop('checked', false);
 
+                // TODO - theese should be dynamic from cookieTypes, not hardcoded as now
                 if( $('#gdpr-cookietype-marketing').data('auto') == 'on' ){
                     if ($.fn.ihavecookies.preference('marketing') === true) {
                         $('#gdpr-cookietype-marketing').prop('checked', true);
@@ -139,6 +140,7 @@
                         $('#gdpr-cookietype-analytics').prop('checked', true);
                     }
                 }
+
                 }
 
                 // Save users cookie preferences (in a cookie!)
@@ -159,6 +161,7 @@
                 // select the cookies they want to accept.
                 $('input[name="gdpr[]"]:not(:disabled)').attr('data-auto', 'off').prop('checked', false);
 
+                // TODO - theese should be dynamic from cookieTypes, not hardcoded as now
                 if ($.fn.ihavecookies.preference('marketing') === true) {
                     $('#gdpr-cookietype-marketing').prop('checked', true);
                 }
