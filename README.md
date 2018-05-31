@@ -4,6 +4,8 @@ A lightweight jQuery plugin that displays a cookie &#x1F36A; consent message as 
 
 The visitor __must__ click the accept button within the popup for the cookie to be set thus granting their consent (GDPR).
 
+If reopening the popup the user may revise their consents.
+
 ## Usage
 
 Download the latest version and include it within your page along with jQuery (1.7.4 or later).
@@ -111,8 +113,10 @@ When the visitor accepts the message, the cookie `cookieControl` with value `tru
 
 An example of the cookie consent message can be viewed at https://iamketan.com.au or in the accompanying `example.html` file.
 
-## Author
-[Ketan Mistry](https://iamketan.com.au) ([@ketanumistry](https://twitter.com/ketanumistry))
+## Authors
+- [Ketan Mistry](https://iamketan.com.au) ([@ketanumistry](https://twitter.com/ketanumistry))
+- [Kim Steinhaug](https://github.com/steinhaug) ([@steinhaug](https://twitter.com/steinhaug))
+
 
 ## License
 

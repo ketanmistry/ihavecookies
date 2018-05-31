@@ -1,11 +1,15 @@
 /*!
  * ihavecookies - jQuery plugin for displaying cookie/privacy message
- * v0.3.1
+ * v0.3.2
  *
  * Copyright (c) 2018 Ketan Mistry (https://iamketan.com.au)
  * Licensed under the MIT license:
  * http://www.opensource.org/licenses/mit-license.php
  *
+ * - Updated so that the settings reflects the already set preferences.
+ * - Added button to reopen the cookie preferences
+ *   Kim Steinhaug / kim@steinhaug.com 
+ * 
  */
 (function($) {
 
@@ -38,41 +42,47 @@
 
         // Set defaults
         var settings = $.extend({
+            forceDisplayPanel: false,
+            fixedCookieTypeLabel:'Nødvendige',
+            fixedCookieTypeDesc: 'Informasjonskapslene er nødvendig for å kunne logge deg inn i butikken og at funksjonalitet som handlekurven i det hele tatt fungerer.',
             cookieTypes: [
                 {
-                    type: 'Site Preferences',
+                    type: 'Innstillinger',
                     value: 'preferences',
-                    description: 'These are cookies that are related to your site preferences, e.g. remembering your username, site colours, etc.'
+                    description: 'Informasjonskapsler kan fortelle oss hvilket språk du foretrekker, i tillegg til kommunikasjonsinnstillingene dine. De kan også gjøre det enklere å fylle ut skjemaer.'
                 },
                 {
-                    type: 'Analytics',
+                    type: 'Statistikk',
                     value: 'analytics',
-                    description: 'Cookies related to site visits, browser types, etc.'
+                    description: 'Informasjonskapsler gjør at vi kan finne ut hvor godt nettstedet og plugins fungerer på ulike steder. I tillegg bruker vi informasjonskapsler til å bedre forstå, forbedre, og utforske produkter, funksjoner og tjenester.'
                 },
                 {
-                    type: 'Marketing',
+                    type: 'Markedsføring',
                     value: 'marketing',
-                    description: 'Cookies related to marketing, e.g. newsletters, social media, etc'
+                    description: 'Vi kan bruke informasjonskapsler til å vise deg relevante annonser. Vi kan også bruke en informasjonskapsel til å finne ut hvorvidt noen som så en annonse på en av våre samarbeidspartneres nettsider, kom tilbake senere og utførte en handling (f.eks. gjennomførte et kjøp).'
                 }
             ],
-            title: 'Cookies & Privacy',
-            message: 'Cookies enable you to use shopping carts and to personalize your experience on our sites, tell us which parts of our websites people have visited, help us measure the effectiveness of ads and web searches, and give us insights into user behavior so we can improve our communications and products.',
-            link: '/privacy-policy',
-            delay: 2000,
+            title: '&#x1F36A; Litt om cookies / informasjonkapsler',
+            message: 'Våre nettsider benytter og har lagret informasjonskapsler, men du kan skru dem av om du ønsker. Du kan lese mer om våres bruk av cookies i våres ',
+            link: '/legal/cookie-policy.php',
+            moreInfoLabel: 'cookie policy',
+            delay: 600,
             expires: 30,
-            moreInfoLabel: 'More information',
-            acceptBtnLabel: 'Accept Cookies',
-            advancedBtnLabel: 'Customise Cookies',
-            cookieTypesTitle: 'Select cookies to accept',
-            fixedCookieTypeLabel:'Necessary',
-            fixedCookieTypeDesc: 'These are cookies that are essential for the website to work correctly.',
-            onAccept: function(){},
-            uncheckBoxes: false
+            acceptBtnLabel: 'Godta og lagre',
+            advancedBtnLabel: 'Innstillinger',
+            cookieTypesTitle: 'Informasjonskapsler du samtykker til:',
+            uncheckBoxes: false,
+            onAccept: function(){
+                if ($.fn.ihavecookies.preference('analytics') === false) {
+                    // analytics cookie removal task goes here
+                }
+            }
         }, options);
 
         var myCookie = getCookie('cookieControl');
         var myCookiePrefs = getCookie('cookieControlPrefs');
-        if (!myCookie || !myCookiePrefs) {
+        if (!myCookie || !myCookiePrefs || settings.forceDisplayPanel) {
+            var myCookie = getCookie('cookieControl');
 
             // Set the 'necessary' cookie type checkbox which can not be unchecked
             var cookieTypes = '<li><input type="checkbox" name="gdpr[]" value="necessary" checked="checked" disabled="disabled"> <label title="' + settings.fixedCookieTypeDesc + '">' + settings.fixedCookieTypeLabel + '</label></li>';
@@ -89,7 +99,14 @@
             });
 
             // Display cookie message on page
-            var cookieMessage = '<div id="gdpr-cookie-message"><h4>' + settings.title + '</h4><p>' + settings.message + ' <a href="' + settings.link + '">' + settings.moreInfoLabel + '</a><div id="gdpr-cookie-types" style="display:none;"><h5>' + settings.cookieTypesTitle + '</h5><ul>' + cookieTypes + '</ul></div><p><button id="gdpr-cookie-accept" type="button">' + settings.acceptBtnLabel + '</button><button id="gdpr-cookie-advanced" type="button">' + settings.advancedBtnLabel + '</button></p></div>';
+            var cookieMessage = '<div id="gdpr-cookie-message"><h4>' + 
+            settings.title + '</h4><p>' + settings.message + ' <a href="' + settings.link + '">' + settings.moreInfoLabel + 
+            '</a><div id="gdpr-cookie-types" style="display:none;"><h5>' + settings.cookieTypesTitle + '</h5><ul>' + cookieTypes + 
+            '</ul></div><p>' + 
+            '<button id="gdpr-cookie-advanced" type="button">' + settings.advancedBtnLabel + '</button>' + 
+            '<button id="gdpr-cookie-accept" type="button">' + settings.acceptBtnLabel + '</button>' + 
+            '</p></div>';
+            
             setTimeout(function(){
                 $($element).append(cookieMessage);
                 $('#gdpr-cookie-message').hide().fadeIn('slow');
@@ -100,9 +117,29 @@
                 // Set cookie
                 dropCookie(true, settings.expires);
 
-                // If 'data-auto' is set to ON, tick all checkboxes because
-                // the user hasn't clicked the customise cookies button
-                $('input[name="gdpr[]"][data-auto="on"]').prop('checked', true);
+                if(!myCookiePrefs){
+                    // If 'data-auto' is set to ON, tick all checkboxes because
+                    // the user hasn't clicked the customise cookies button
+                    $('input[name="gdpr[]"][data-auto="on"]').prop('checked', true);
+                } else {
+                    $('input[name="gdpr[]"][data-auto="on"]').prop('checked', false);
+
+                if( $('#gdpr-cookietype-marketing').data('auto') == 'on' ){
+                    if ($.fn.ihavecookies.preference('marketing') === true) {
+                        $('#gdpr-cookietype-marketing').prop('checked', true);
+                    }
+                }
+                if( $('#gdpr-cookietype-preferences').data('auto') == 'on' ){
+                    if ($.fn.ihavecookies.preference('preferences') === true) {
+                        $('#gdpr-cookietype-preferences').prop('checked', true);
+                    }
+                }
+                if( $('#gdpr-cookietype-analytics').data('auto') == 'on' ){
+                    if ($.fn.ihavecookies.preference('analytics') === true) {
+                        $('#gdpr-cookietype-analytics').prop('checked', true);
+                    }
+                }
+                }
 
                 // Save users cookie preferences (in a cookie!)
                 var prefs = [];
@@ -121,6 +158,17 @@
                 // one and set 'data-auto' to OFF for all. The user can now
                 // select the cookies they want to accept.
                 $('input[name="gdpr[]"]:not(:disabled)').attr('data-auto', 'off').prop('checked', false);
+
+                if ($.fn.ihavecookies.preference('marketing') === true) {
+                    $('#gdpr-cookietype-marketing').prop('checked', true);
+                }
+                if ($.fn.ihavecookies.preference('preferences') === true) {
+                    $('#gdpr-cookietype-preferences').prop('checked', true);
+                }
+                if ($.fn.ihavecookies.preference('analytics') === true) {
+                    $('#gdpr-cookietype-analytics').prop('checked', true);
+                }
+
                 $('#gdpr-cookie-types').slideDown('fast', function(){
                     $('#gdpr-cookie-advanced').prop('disabled', true);
                 });

@@ -1,4 +1,6 @@
-<html>
+<?php
+session_start();
+?><html>
 <head>
     <meta charset="UTF-8">
     <title>I have &#x1F36A;s</title>
@@ -7,27 +9,23 @@
     <script type="text/javascript">
     $(document).ready(function() {
         $('body').ihavecookies({
-            title: '&#x1F36A; Accept Cookies & Privacy Policy?',
-            message: 'There are no cookies used on this site, but if there were this message could be customised to provide more details. Click the <strong>accept</strong> button below to see the optional callback in action...',
-            delay: 600,
-            expires: 1,
-            link: '#privacy',
-            onAccept: function(){
-                var myPreferences = $.fn.ihavecookies.cookie();
-                console.log('Yay! The following preferences were saved...');
-                console.log(myPreferences);
-            },
-            uncheckBoxes: true,
-            acceptBtnLabel: 'Accept Cookies',
-            moreInfoLabel: 'More information',
-            cookieTypesTitle: 'Select which cookies you want to accept',
-            fixedCookieTypeLabel: 'Essential',
-            fixedCookieTypeDesc: 'These are essential for the website to work correctly.'
+            forceDisplayPanel: true
         });
-
         if ($.fn.ihavecookies.preference('marketing') === true) {
             console.log('This should run because marketing is accepted.');
         }
+        if ($.fn.ihavecookies.preference('analytics') === true) {
+            console.log('This should run because analytics is accepted.');
+        }
+        $('.gdpr-cookie-preferences').on('click',function(){
+            if( $('#gdpr-cookie-message').length == 0 ){
+                $('body').ihavecookies({
+                    forceDisplayPanel: true,
+                    delay: 0
+                });
+            }
+        });
+
     });
     </script>
     <link href="https://fonts.googleapis.com/css?family=Roboto+Slab|Quicksand:400,500" rel="stylesheet">
@@ -35,70 +33,17 @@
     :root {
         --purple: #3B3646;
         --red: #EE4B5A;
+        --green: #2ECC40;
+        --blue: #0074D9;
+        --black: #000000;
+        --orange: #FF851B;
     }
-    * {
+    #gdpr-cookie-message h1, #gdpr-cookie-message h2, #gdpr-cookie-message h3, #gdpr-cookie-message h4, #gdpr-cookie-message h5  {
         padding: 0;
         margin: 0;
         border: none;
     }
-    body {
-        padding: 30px;
-        color: #333;
-        font-family: 'Roboto Slab', system-ui;
-        font-weight: 400;
-        font-style: normal;
-        font-size: 18px;
-    }
-    .container {
-        margin: 0 auto;
-        max-width: 550px;
-    }
-    .highlight {
-        background: rgba(255,215,0,0.115);
-    }
-    h1 {
-        color: var(--red);
-        font-family: 'Quicksand', sans-serif;
-        font-weight: 500;
-        font-size: 30px;
-        margin-bottom: 20px;
-    }
-    h3 {
-        font-family: 'Quicksand', sans-serif;
-        font-size: 21px;
-        font-weight: 500;
-        color: var(--red);
-        margin-bottom: 20px;
-    }
-    p, ul {
-        margin-bottom: 20px;
-        line-height: 1.75em;
-    }
-    li {
-        list-style: none;
-        margin-bottom: 10px;
-    }
-    li:last-child {
-        margin-bottom: 0;
-    }
-    input[type="checkbox"] {
-        margin-top: 10px;
-        margin-right: 15px;
-        float: left;
-    }
-    label {
-        display: inline-block;
-        max-width: 90%;
-    }
-    code {
-        color: var(--red);
-        font-family: monospace;
-        font-size: 16px;
-        background: #f7f7f7;
-        padding: 3px 5px;
-        border-radius: 3px;
-        border: 1px solid #ebebeb;
-    }
+
     /* Cookie Dialog */
     #gdpr-cookie-message {
         position: fixed;
@@ -113,14 +58,14 @@
         font-family: system-ui;
     }
     #gdpr-cookie-message h4 {
-        color: var(--red);
+        color: var(--orange);
         font-family: 'Quicksand', sans-serif;
         font-size: 18px;
         font-weight: 500;
         margin-bottom: 10px;
     }
     #gdpr-cookie-message h5 {
-        color: var(--red);
+        color: var(--orange);
         font-family: 'Quicksand', sans-serif;
         font-size: 15px;
         font-weight: 500;
@@ -140,7 +85,7 @@
         display: inline-block;
     }
     #gdpr-cookie-message a {
-        color: var(--red);
+        color: var(--orange);
         text-decoration: none;
         font-size: 15px;
         padding-bottom: 2px;
@@ -149,7 +94,7 @@
     }
     #gdpr-cookie-message a:hover {
         color: white;
-        border-bottom-color: var(--red);
+        border-bottom-color: var(--orange);
         transition: all 0.3s ease-in;
     }
     #gdpr-cookie-message button {
@@ -172,7 +117,7 @@
     button#gdpr-cookie-advanced {
         background: white;
         color: var(--red);
-    }
+    }   
     #gdpr-cookie-message button:disabled {
         opacity: 0.3;
     }
@@ -181,6 +126,46 @@
         margin-top: 0;
         margin-right: 5px;
     }
+    #gdpr-cookie-message button {
+        background: var(--blue);
+        color: white;
+    }
+    #gdpr-cookie-message button:hover {
+        background: var(--green);
+        color: var(--black);
+        transition: all 0.3s ease-in;
+    }
+    button#gdpr-cookie-advanced {
+        color: #fff;
+        border-color: var(--blue);
+
+        display: inline-block;
+        outline: none;
+        text-align: center;
+        text-decoration: none;
+        font-family: inherit;
+        font-weight: 300;
+        letter-spacing: 1px;
+        vertical-align: middle;
+        border: 1px solid;
+        transition: all 0.2s ease;
+        box-sizing: border-box;
+        text-shadow: 0 1px 0 rgba(0,0,0,0.01);
+    }
+    button#gdpr-cookie-advanced:hover {
+        background: var(--orange);
+        color: #000;
+        border-color: var(--orange);
+    }
+    button#gdpr-cookie-advanced {
+        padding: 2px 7px 2px 7px;
+        font-size: 0.75em;
+        background:#3B3646;
+        border: 1px solid rgba(255, 255, 255, .1);
+    }
+
+
+
     </style>
 </head>
 <body>
@@ -198,6 +183,44 @@
             <li><input type="checkbox" id="opt2" value="Y"> <label for="opt2">Unchecked by default &dash; remains unchecked</label>
             <li><input type="checkbox" id="opt3" value="Y" class="ihavecookies" checked> <label for="opt3">Checked by default &dash; <em>ihavecookies</em> automatically unchecks this on page load because is has the class <code>ihavecookies</code> applied to it.</label>
         </ul>
+
+
+        <button class="gdpr-cookie-preferences">Reopen settings</button>
+
     </div>
+
+
+
+<?php
+
+    echo '<div>';
+    if(GDPR('analytics')){
+        echo '<p>Analytics enabled</p>';
+    }
+    echo '</div>';
+
+
+/**
+ *  The three different cookie groups that can be used are:
+ *  preferences, analytics, marketing
+ */
+function GDPR($type){
+
+    // User has not yet given concent 
+    if( !isset($_COOKIE['cookieControlPrefs']) )
+        return true;
+
+    // User has now given consent and we obey that
+    $prefs = $_COOKIE['cookieControlPrefs'];
+    if( strpos($prefs, $type) === false )
+        return false;
+
+    return true;
+}
+
+var_dump( $_COOKIE );
+
+?>
+
 </body>
 </html>
