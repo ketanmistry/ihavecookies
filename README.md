@@ -4,6 +4,8 @@ A lightweight jQuery plugin that displays a cookie &#x1F36A; consent message as 
 
 The visitor __must__ click the accept button within the popup for the cookie to be set thus granting their consent (GDPR).
 
+If reopening the popup the user may revise their consents, this makes it perfect for the "*implied consent model*". See example.php for good description of this method.
+
 ## Usage
 
 Download the latest version and include it within your page along with jQuery (1.7.4 or later).
@@ -29,6 +31,9 @@ There are a number of options available to help with customisation:
 $('body').ihavecookies({
     // A custom title for the popup
     title: "Cookies & Privacy",
+
+    // boolean, display the popup regardless of existing cookies or not
+    forceDisplayPanel: false, 
 
     // Add your own cookie message here, if you prefer not to use the
     // default one. HTML can be included within this message.
@@ -109,10 +114,14 @@ When the visitor accepts the message, the cookie `cookieControl` with value `tru
 
 ## Example
 
-An example of the cookie consent message can be viewed at https://iamketan.com.au or in the accompanying `example.html` file.
+An example of the cookie consent message can be viewed at https://projects.steinhaug.com/ihavecookies/ or in the accompanying `example.php` file.
 
-## Author
-[Ketan Mistry](https://iamketan.com.au) ([@ketanumistry](https://twitter.com/ketanumistry))
+Make sure to reopen the preferences so that you get to change your existing preferences aswell.
+
+## Authors
+- [Ketan Mistry](https://iamketan.com.au) ([@ketanumistry](https://twitter.com/ketanumistry))
+- [Kim Steinhaug](https://github.com/steinhaug) ([@steinhaug](https://twitter.com/steinhaug))
+
 
 ## License
 

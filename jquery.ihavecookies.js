@@ -1,11 +1,15 @@
 /*!
  * ihavecookies - jQuery plugin for displaying cookie/privacy message
- * v0.3.1
+ * v0.3.2
  *
  * Copyright (c) 2018 Ketan Mistry (https://iamketan.com.au)
  * Licensed under the MIT license:
  * http://www.opensource.org/licenses/mit-license.php
  *
+ * - Updated so that the settings reflects the already set preferences.
+ * - Added button to reopen the cookie preferences
+ *   Kim Steinhaug / kim@steinhaug.com 
+ * 
  */
 (function($) {
 
@@ -38,6 +42,9 @@
 
         // Set defaults
         var settings = $.extend({
+            forceDisplayPanel: false,
+            fixedCookieTypeLabel:'Necessary',
+            fixedCookieTypeDesc: 'These are essential for the website to work correctly.',
             cookieTypes: [
                 {
                     type: 'Site Preferences',
@@ -55,24 +62,27 @@
                     description: 'Cookies related to marketing, e.g. newsletters, social media, etc'
                 }
             ],
-            title: 'Cookies & Privacy',
-            message: 'Cookies enable you to use shopping carts and to personalize your experience on our sites, tell us which parts of our websites people have visited, help us measure the effectiveness of ads and web searches, and give us insights into user behavior so we can improve our communications and products.',
+            title: '&#x1F36A; Implied Consent: Cookies info',
+            message: 'We are using and have set cookies, but you can switch them off if you want.',
             link: '/privacy-policy',
-            delay: 2000,
-            expires: 30,
             moreInfoLabel: 'More information',
+            delay: 600,
+            expires: 30,
             acceptBtnLabel: 'Accept Cookies',
             advancedBtnLabel: 'Customise Cookies',
             cookieTypesTitle: 'Select cookies to accept',
-            fixedCookieTypeLabel:'Necessary',
-            fixedCookieTypeDesc: 'These are cookies that are essential for the website to work correctly.',
-            onAccept: function(){},
-            uncheckBoxes: false
+            uncheckBoxes: false,
+            onAccept: function(){
+                if ($.fn.ihavecookies.preference('analytics') === false) {
+                    // analytics cookie removal task goes here
+                }
+            }
         }, options);
 
         var myCookie = getCookie('cookieControl');
         var myCookiePrefs = getCookie('cookieControlPrefs');
-        if (!myCookie || !myCookiePrefs) {
+        if (!myCookie || !myCookiePrefs || settings.forceDisplayPanel) {
+            var myCookie = getCookie('cookieControl');
 
             // Set the 'necessary' cookie type checkbox which can not be unchecked
             var cookieTypes = '<li><input type="checkbox" name="gdpr[]" value="necessary" checked="checked" disabled="disabled"> <label title="' + settings.fixedCookieTypeDesc + '">' + settings.fixedCookieTypeLabel + '</label></li>';
@@ -89,7 +99,14 @@
             });
 
             // Display cookie message on page
-            var cookieMessage = '<div id="gdpr-cookie-message"><h4>' + settings.title + '</h4><p>' + settings.message + ' <a href="' + settings.link + '">' + settings.moreInfoLabel + '</a><div id="gdpr-cookie-types" style="display:none;"><h5>' + settings.cookieTypesTitle + '</h5><ul>' + cookieTypes + '</ul></div><p><button id="gdpr-cookie-accept" type="button">' + settings.acceptBtnLabel + '</button><button id="gdpr-cookie-advanced" type="button">' + settings.advancedBtnLabel + '</button></p></div>';
+            var cookieMessage = '<div id="gdpr-cookie-message"><h4>' + 
+            settings.title + '</h4><p>' + settings.message + ' <a href="' + settings.link + '">' + settings.moreInfoLabel + 
+            '</a><div id="gdpr-cookie-types" style="display:none;"><h5>' + settings.cookieTypesTitle + '</h5><ul>' + cookieTypes + 
+            '</ul></div><p>' + 
+            '<button id="gdpr-cookie-advanced" type="button">' + settings.advancedBtnLabel + '</button>' + 
+            '<button id="gdpr-cookie-accept" type="button">' + settings.acceptBtnLabel + '</button>' + 
+            '</p></div>';
+            
             setTimeout(function(){
                 $($element).append(cookieMessage);
                 $('#gdpr-cookie-message').hide().fadeIn('slow');
@@ -100,9 +117,31 @@
                 // Set cookie
                 dropCookie(true, settings.expires);
 
-                // If 'data-auto' is set to ON, tick all checkboxes because
-                // the user hasn't clicked the customise cookies button
-                $('input[name="gdpr[]"][data-auto="on"]').prop('checked', true);
+                if(!myCookiePrefs){
+                    // If 'data-auto' is set to ON, tick all checkboxes because
+                    // the user hasn't clicked the customise cookies button
+                    $('input[name="gdpr[]"][data-auto="on"]').prop('checked', true);
+                } else {
+                    $('input[name="gdpr[]"][data-auto="on"]').prop('checked', false);
+
+                // TODO - theese should be dynamic from cookieTypes, not hardcoded as now
+                if( $('#gdpr-cookietype-marketing').data('auto') == 'on' ){
+                    if ($.fn.ihavecookies.preference('marketing') === true) {
+                        $('#gdpr-cookietype-marketing').prop('checked', true);
+                    }
+                }
+                if( $('#gdpr-cookietype-preferences').data('auto') == 'on' ){
+                    if ($.fn.ihavecookies.preference('preferences') === true) {
+                        $('#gdpr-cookietype-preferences').prop('checked', true);
+                    }
+                }
+                if( $('#gdpr-cookietype-analytics').data('auto') == 'on' ){
+                    if ($.fn.ihavecookies.preference('analytics') === true) {
+                        $('#gdpr-cookietype-analytics').prop('checked', true);
+                    }
+                }
+
+                }
 
                 // Save users cookie preferences (in a cookie!)
                 var prefs = [];
@@ -121,6 +160,18 @@
                 // one and set 'data-auto' to OFF for all. The user can now
                 // select the cookies they want to accept.
                 $('input[name="gdpr[]"]:not(:disabled)').attr('data-auto', 'off').prop('checked', false);
+
+                // TODO - theese should be dynamic from cookieTypes, not hardcoded as now
+                if ($.fn.ihavecookies.preference('marketing') === true) {
+                    $('#gdpr-cookietype-marketing').prop('checked', true);
+                }
+                if ($.fn.ihavecookies.preference('preferences') === true) {
+                    $('#gdpr-cookietype-preferences').prop('checked', true);
+                }
+                if ($.fn.ihavecookies.preference('analytics') === true) {
+                    $('#gdpr-cookietype-analytics').prop('checked', true);
+                }
+
                 $('#gdpr-cookie-types').slideDown('fast', function(){
                     $('#gdpr-cookie-advanced').prop('disabled', true);
                 });
