@@ -43,34 +43,34 @@
         // Set defaults
         var settings = $.extend({
             forceDisplayPanel: false,
-            fixedCookieTypeLabel:'Nødvendige',
-            fixedCookieTypeDesc: 'Informasjonskapslene er nødvendig for å kunne logge deg inn i butikken og at funksjonalitet som handlekurven i det hele tatt fungerer.',
+            fixedCookieTypeLabel:'Necessary',
+            fixedCookieTypeDesc: 'These are essential for the website to work correctly.',
             cookieTypes: [
                 {
-                    type: 'Innstillinger',
+                    type: 'Site Preferences',
                     value: 'preferences',
-                    description: 'Informasjonskapsler kan fortelle oss hvilket språk du foretrekker, i tillegg til kommunikasjonsinnstillingene dine. De kan også gjøre det enklere å fylle ut skjemaer.'
+                    description: 'These are cookies that are related to your site preferences, e.g. remembering your username, site colours, etc.'
                 },
                 {
-                    type: 'Statistikk',
+                    type: 'Analytics',
                     value: 'analytics',
-                    description: 'Informasjonskapsler gjør at vi kan finne ut hvor godt nettstedet og plugins fungerer på ulike steder. I tillegg bruker vi informasjonskapsler til å bedre forstå, forbedre, og utforske produkter, funksjoner og tjenester.'
+                    description: 'Cookies related to site visits, browser types, etc.'
                 },
                 {
-                    type: 'Markedsføring',
+                    type: 'Marketing',
                     value: 'marketing',
-                    description: 'Vi kan bruke informasjonskapsler til å vise deg relevante annonser. Vi kan også bruke en informasjonskapsel til å finne ut hvorvidt noen som så en annonse på en av våre samarbeidspartneres nettsider, kom tilbake senere og utførte en handling (f.eks. gjennomførte et kjøp).'
+                    description: 'Cookies related to marketing, e.g. newsletters, social media, etc'
                 }
             ],
-            title: '&#x1F36A; Litt om cookies / informasjonkapsler',
-            message: 'Våre nettsider benytter og har lagret informasjonskapsler, men du kan skru dem av om du ønsker. Du kan lese mer om våres bruk av cookies i våres ',
-            link: '/legal/cookie-policy.php',
-            moreInfoLabel: 'cookie policy',
+            title: '&#x1F36A; Implied Consent: Cookies info',
+            message: 'We are using and have set cookies, but you can switch them off if you want.',
+            link: '/privacy-policy',
+            moreInfoLabel: 'More information',
             delay: 600,
             expires: 30,
-            acceptBtnLabel: 'Godta og lagre',
-            advancedBtnLabel: 'Innstillinger',
-            cookieTypesTitle: 'Informasjonskapsler du samtykker til:',
+            acceptBtnLabel: 'Accept Cookies',
+            advancedBtnLabel: 'Customise Cookies',
+            cookieTypesTitle: 'Select cookies to accept',
             uncheckBoxes: false,
             onAccept: function(){
                 if ($.fn.ihavecookies.preference('analytics') === false) {
