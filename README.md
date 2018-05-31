@@ -32,6 +32,9 @@ $('body').ihavecookies({
     // A custom title for the popup
     title: "Cookies & Privacy",
 
+    // boolean, display the popup regardless of existing cookies or not
+    forceDisplayPanel: false, 
+
     // Add your own cookie message here, if you prefer not to use the
     // default one. HTML can be included within this message.
     message: "Cookies enable you to use shopping carts and to personalize
@@ -111,7 +114,9 @@ When the visitor accepts the message, the cookie `cookieControl` with value `tru
 
 ## Example
 
-An example of the cookie consent message can be viewed at https://iamketan.com.au or in the accompanying `example.html` file.
+An example of the cookie consent message can be viewed at https://projects.steinhaug.com/ihavecookies/ or in the accompanying `example.php` file.
+
+Make sure to reopen the preferences so that you get to change your existing preferences aswell.
 
 ## Authors
 - [Ketan Mistry](https://iamketan.com.au) ([@ketanumistry](https://twitter.com/ketanumistry))
