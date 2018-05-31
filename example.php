@@ -184,8 +184,84 @@ session_start();
             <li><input type="checkbox" id="opt3" value="Y" class="ihavecookies" checked> <label for="opt3">Checked by default &dash; <em>ihavecookies</em> automatically unchecks this on page load because is has the class <code>ihavecookies</code> applied to it.</label>
         </ul>
 
-
         <button class="gdpr-cookie-preferences">Reopen settings</button>
+
+        <h1>Model 2: Implied Consent</h1>
+        <p>In summary: We are using and have set cookies, but you can switch them off if you want.</p>
+        <p>The key differentiator to the Information Only model is that the site provides the ability to
+        directly opt-out or refuse cookies, even though they are set by default on first arrival.<p>
+        <h2>Good Practice Tips:</h2>
+        <p>When offering opt-out controls there is balance to be struck between usability and the effort
+        required to opt-out.
+        Creating options for different levels of opt-out is good. Best practice suggests grouping or
+        categorising cookies by purpose, and giving control at that level – perhaps over 3-5
+        different categories. This gives real choice to users, without it being too difficult to choose,
+        or too many clicks to make.</p>
+        <p>It is also a good idea to explain the consequences of opting out, especially if it may
+        negatively impact user experience.
+        If people do opt-out it is also perfectly acceptable to incentivise them to opt back in again
+        later. You may find you have to block certain functionality when users opt-out of some
+        types of cookies. When you do this, make it clear that this is the result of their choice – and
+        you can then enable them to opt back in, if they want to use the blocked functionality.
+        If you want to there is nothing to stop you preventing access to premium/valuable content or
+        services after users have opted-out, even if these do not rely on cookies to work, but at the
+        same time don’t try to trick users into opting back in.
+        It is also a good idea to make sure that the controls to opt-out or in again are always readily
+        accessible to the user, such as a page element or link that is on every page, and is clearly
+        identified.</p>
+        <p>We also believe that implied consent can also be done without the need for banners or popups
+        that automatically appear when users first arrive on a site, although this may not be
+        consistently true in all jurisdictions. 
+        As users become familiar with the concept of being able to control and opt-out of cookies,
+        those with an interest in doing so will automatically seek out access to information and
+        control mechanisms. As long as links or buttons are easily identifiable, always available,
+        and offer real choice, there is less need to interrupt the user experience which many visitors
+        find annoying.</p>
+        <p>However, if you do want to introduce a banner message, an approach that works well with
+        implied consent is the banner that automatically disappears after a period of time. It works
+        to tell users you are complying whilst not requiring an action to get rid of the message. As
+        long as there is another always available link to the opt-out controls, this can be an
+        additional assurance that you have given clear notice to visitors.
+        <h2>Mistakes to Avoid:</h2>
+        <p>Probably the biggest mistake we see is confusion between the Information Only and
+        Implied Consent models. As noted above a lot of sites try to use the language of implied
+        consent in an information only notice, but implied consent notices can also be easily
+        confused with explicit consent.</p>
+        <p>An opt-out mechanism will inevitably require you to make some technical changes to your
+        site, in the event that users choose to stop cookies being set. It is vital therefore that you
+        put those changes in place and test them. If you are using a pre-built script or service,
+        make sure you read the documentation, and where necessary involve your web developer.
+        This includes making sure you understand the requirements for using such a script before
+        you purchase or licence it. Giving your visitors the appearance of choice when their choices
+        don’t actually do anything can easily be seen as being deliberately misleading, which is
+        clearly something to avoid.</p>
+        <p>Try to avoid forcing people off-site or requiring them to install third party tools to exercise
+        their opt-out. Some opt-out mechanisms do this – for example requiring installation of
+        browser plug-ins for Google Analytics. It can seem like an easy option, but has some
+        significant drawbacks.</p>
+        <p>It is not only annoying for users, but it puts control into the hands of a third party rather that
+        you. It also means that you may not be able to incentivise users to opt back in again at a
+        later date – which could be critical for some businesses. If relying on the installation of third 
+        party software – some users may not be able to do this (for example users at work may
+        have had this disabled by their IT department) – and therefore cannot exercise their rights
+        properly. Plus of course, if you direct people off-site, there is a significant risk they won’t
+        <p>come back again.</p>
+        You don’t need to worry about deleting cookies already set if users opt-out. Technically this
+        is more challenging to do, especially with third party cookies. Opting out means stopping
+        reading existing cookies, however if you use the right mechanisms to stop setting of new
+        cookies, this will also prevent reading if existing cookies, which is consistent with the
+        implied consent model.</p>
+        <h2>Risk Factors</h2>
+        <p>Implied consent is potentially the least user-interruptive model for compliance, if done in the
+        right way. It can give real choice without getting in the way of the user journey for those
+        that are genuinely not interested in exercising their choice.</p>
+        <p>Not only is it considerably lower risk from a regulators’ point of view than the information
+        only approach, it also shows respect for visitors who want to exercise control.</p>
+        <p>Research suggests that web users are employing more privacy defensive technologies than
+        ever before. Though this makes life easier in the short term for site owners, it has bigger
+        long term consequences in terms of loss of control over your own websites. It is much
+        better to try to prevent that by using a little more effort to give users choices that you can
+        remain ultimately in control of</p>
 
     </div>
 
@@ -198,7 +274,6 @@ session_start();
         echo '<p>Analytics enabled</p>';
     }
     echo '</div>';
-
 
 /**
  *  The three different cookie groups that can be used are:
