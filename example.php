@@ -8,6 +8,7 @@ session_start();
     <script type="text/javascript" src="jquery.ihavecookies.js"></script>
     <script type="text/javascript">
     $(document).ready(function() {
+        // Be sure that the main JS has the correct language to save code
         $('body').ihavecookies({
             forceDisplayPanel: true
         });
@@ -17,6 +18,8 @@ session_start();
         if ($.fn.ihavecookies.preference('analytics') === true) {
             console.log('This should run because analytics is accepted.');
         }
+
+        // Links with "gdpr-cookie-preferences" class will reopen the preferences
         $('.gdpr-cookie-preferences').on('click',function(){
             if( $('#gdpr-cookie-message').length == 0 ){
                 $('body').ihavecookies({
@@ -165,10 +168,42 @@ session_start();
     }
 
 
+    .github-badge{
+        width: 140px;
+        height: 140px;
+        position: fixed;
+        top: 0;
+        right: 0;
+    }
+
+    .github-badge:before{
+        content: "";
+        width: 0;
+        height: 0;
+        border-top: 0 solid transparent;
+        border-right: 140px solid #232323;
+        border-bottom: 140px solid transparent;
+        display: block;
+        text-align: center;
+    }
+
+    .github-badge img{
+        max-width: 60px;
+        width: 100%;
+        display: block;
+        margin: 0 auto;
+        position: absolute;
+        top: 10px;
+        right: 10px;
+    }
 
     </style>
 </head>
 <body>
+    <a href="https://github.com/steinhaug/ihavecookies" title="Fork me on Github" class="github-badge">
+		<img src="img/github-logo.svg" alt="Github">
+	</a>
+
     <div class="container">
         <h1>ihavecookies jQuery Plugin in action</h1>
         <p>When you load this page you will see an example of the cookie message popup in the bottom right corner.</p>
