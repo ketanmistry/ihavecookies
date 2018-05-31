@@ -4,7 +4,7 @@ A lightweight jQuery plugin that displays a cookie &#x1F36A; consent message as 
 
 The visitor __must__ click the accept button within the popup for the cookie to be set thus granting their consent (GDPR).
 
-If reopening the popup the user may revise their consents.
+If reopening the popup the user may revise their consents, this makes it perfect for the "*implied consent model*". See example.php for good description of this method.
 
 ## Usage
 
