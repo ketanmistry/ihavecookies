@@ -81,6 +81,8 @@ $('body').ihavecookies({
 
 ### Events
 
+#### Reopening the message
+
 Use `reinit` to reopen ihavecookies when clicking on an element. This opens the message with the previously selected checkboxes ticked.
 
 ```javascript
@@ -97,7 +99,7 @@ $('button').click(function(){
 
 ### Styling
 
-The plugin doesn't include any CSS so it can be styled to fit in with your websites look and feel. The cookie message has an ID of `#gdpr-cookie-message`.
+The plugin doesn't include any CSS so it can be styled to fit in with your websites look and feel. The cookie message has an ID of `#gdpr-cookie-message`. Sample CSS can be viewed in the accompanying `example.css` file.
 
 ### Cookie
 
