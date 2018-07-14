@@ -61,6 +61,8 @@
         var myCookie = getCookie('cookieControl');
         var myCookiePrefs = getCookie('cookieControlPrefs');
         if (!myCookie || !myCookiePrefs || event == 'reinit') {
+            // Remove all instances of the cookie message so it's not duplicated
+            $('#gdpr-cookie-message').remove();
 
             // Set the 'necessary' cookie type checkbox which can not be unchecked
             var cookieTypes = '<li><input type="checkbox" name="gdpr[]" value="necessary" checked="checked" disabled="disabled"> <label title="' + settings.fixedCookieTypeDesc + '">' + settings.fixedCookieTypeLabel + '</label></li>';
