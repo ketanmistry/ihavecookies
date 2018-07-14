@@ -8,15 +8,15 @@ The visitor __must__ click the accept button within the popup for the cookie to 
 
 Download the latest version and include it within your page along with jQuery (1.7.4 or later).
 
-```
+```html
 <script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/2.x.x/jquery.min.js"></script>
 <script type="text/javascript" src="jquery.ihavecookies.min.js"></script>
 ```
 
 Then initialise the plugin using:
 
-```
-$('body').ihavecookies(options, event);
+```javascript
+$('body').ihavecookies();
 ```
 
 This will append the cookie popup to the `<body>` tag with the default settings and message.
@@ -25,46 +25,33 @@ This will append the cookie popup to the `<body>` tag with the default settings 
 
 There are a number of options available to help with customisation:
 
-```
+Option | Default Value | Description
+------ | ------------- | -----------
+title | "Cookies & Privacy" | A custom title for the popup
+message | "Cookies enable you to use shopping carts and to personalize your experience on our sites, tell us which parts of our websites people have visited, help us measure the effectiveness of ads and web searches, and give us insights into user behavior so we can improve our communications and products." | Add your own cookie message here, if you prefer not to use the default one. HTML can be included within this message.
+link | "/privacy-policy" | Link to your privacy policy for more information
+delay | 2000 | Time before the popup is displayed after page load (in milliseconds)
+expires | 30 | Days for the cookie to expire
+onAccept | function(){} | Optional callback function when 'Accept' button is clicked
+uncheckBoxes | false | Unchecks all checkboxes on page load that have class .ihavecookies applied to them. Set to true to turn this option on
+moreInfoLabel | 'More information' | Label for link to privacy policy
+acceptBtnLabel | 'Accept All Cookies' | Label for accept cookies button
+advancedBtnLabel | 'Customise Cookies' | Label for customise cookies button
+cookieTypesTitle | 'Select cookies to accept' | Title for customise cookies section
+fixedCookieTypeLabel | 'Necessary' | Label for the "necessary" cookie type
+fixedCookieTypeDesc | 'These are cookies that are essential for the website to work correctly.' | Description for the "necessary" cookie type
+cookieTypes | Array | Array of cookie types for which to show checkboxes for - See code example below.
+
+### Example Code
+
+The code below shows an example of the cookie types options.
+
+```javascript
 $('body').ihavecookies({
-    // A custom title for the popup
-    title: "Cookies & Privacy",
-
-    // Add your own cookie message here, if you prefer not to use the
-    // default one. HTML can be included within this message.
-    message: "Cookies enable you to use shopping carts and to personalize
-              your experience on our sites, tell us which parts of our
-              websites people have visited, help us measure the effectiveness
-              of ads and web searches, and give us insights into user
-              behavior so we can improve our communications and products.",
-
-    // Link to your privacy policy for more information
-    link: "/privacy-policy",
-
-    // Time before the popup is displayed after page load (in milliseconds)
-    delay: 2000,
-
-    // Days for the cookie to expire
-    expires: 30,
-
     // Optional callback function when 'Accept' button is clicked
     onAccept: function() {
         // Do whatever you need to here...
     },
-
-    // Unchecks all checkboxes on page load that have class .ihavecookies
-    // applied to them. Set to true to turn this option on
-    uncheckBoxes: false,
-
-    // Set labels for links and buttons
-    moreInfoLabel: 'More information',
-    acceptBtnLabel: 'Accept All Cookies',
-    advancedBtnLabel: 'Customise Cookies',
-    cookieTypesTitle: 'Select cookies to accept',
-
-    // Labels and description for the "Necessary" cookie type
-    fixedCookieTypeLabel:'Necessary',
-    fixedCookieTypeDesc: 'These are cookies that are essential for the website to work correctly.',
 
     // Array of cookie types for which to show checkboxes.
     // - type: Type of cookie. This is also the label that is displayed.
@@ -95,6 +82,12 @@ $('body').ihavecookies({
 ### Events
 
 Use `reinit` to reopen ihavecookies when clicking on an element. This opens the message with the previously selected checkboxes ticked.
+
+```javascript
+$('button').click(function(){
+    $('body').ihavecookies(options, 'init');
+});
+```
 
 ### Methods
 
