@@ -1,6 +1,6 @@
 /*!
  * ihavecookies - jQuery plugin for displaying cookie/privacy message
- * v0.3.1
+ * v0.3.2
  *
  * Copyright (c) 2018 Ketan Mistry (https://iamketan.com.au)
  * Licensed under the MIT license:
@@ -17,22 +17,10 @@
     | Displays the cookie message on first visit or 30 days after their
     | last visit.
     |
-    | Options:
-    |  - title : Title for the popup
-    |  - message : Message to display within the popup
-    |  - link : Link to privacy page
-    |  - delay : Time before the popup is displayed after page load
-    |  - expires : Days for the cookie to expire
-    |  - onAccept : Optional callback function when 'Accept' button is clicked
-    |  - uncheckBoxes : Unchecks all checkboxes on page load that have class
-    |                   .ihavecookies applied to them. Set to true to turn this
-    |                   option on
-    | - moreInfoLabel : Label for the link to privacy policy
-    | - acceptBtnLabel : Label for the accept cookies button
-    | - cookieTypes : Array of cookie types to list with checkboxes
+    | @param event - 'reinit' to reopen the cookie message
     |
     */
-    $.fn.ihavecookies = function(options) {
+    $.fn.ihavecookies = function(options, event) {
 
         var $element = $(this);
 
@@ -72,12 +60,13 @@
 
         var myCookie = getCookie('cookieControl');
         var myCookiePrefs = getCookie('cookieControlPrefs');
-        if (!myCookie || !myCookiePrefs) {
+        if (!myCookie || !myCookiePrefs || event == 'reinit') {
 
             // Set the 'necessary' cookie type checkbox which can not be unchecked
             var cookieTypes = '<li><input type="checkbox" name="gdpr[]" value="necessary" checked="checked" disabled="disabled"> <label title="' + settings.fixedCookieTypeDesc + '">' + settings.fixedCookieTypeLabel + '</label></li>';
 
             // Generate list of cookie type checkboxes
+            preferences = JSON.parse(myCookiePrefs);
             $.each(settings.cookieTypes, function(index, field) {
                 if (field.type !== '' && field.value !== '') {
                     var cookieTypeDescription = '';
@@ -92,7 +81,16 @@
             var cookieMessage = '<div id="gdpr-cookie-message"><h4>' + settings.title + '</h4><p>' + settings.message + ' <a href="' + settings.link + '">' + settings.moreInfoLabel + '</a><div id="gdpr-cookie-types" style="display:none;"><h5>' + settings.cookieTypesTitle + '</h5><ul>' + cookieTypes + '</ul></div><p><button id="gdpr-cookie-accept" type="button">' + settings.acceptBtnLabel + '</button><button id="gdpr-cookie-advanced" type="button">' + settings.advancedBtnLabel + '</button></p></div>';
             setTimeout(function(){
                 $($element).append(cookieMessage);
-                $('#gdpr-cookie-message').hide().fadeIn('slow');
+                $('#gdpr-cookie-message').hide().fadeIn('slow', function(){
+                    // If reinit'ing, open the advanced section of message
+                    // and re-check all previously selected options.
+                    if (event == 'reinit') {
+                        $('#gdpr-cookie-advanced').trigger('click');
+                        $.each(preferences, function(index, field) {
+                            $('input#gdpr-cookietype-' + field).prop('checked', true);
+                        });
+                    }
+                });
             }, settings.delay);
 
             // When accept button is clicked drop cookie

@@ -16,12 +16,12 @@ Download the latest version and include it within your page along with jQuery (1
 Then initialise the plugin using:
 
 ```
-$('body').ihavecookies();
+$('body').ihavecookies(options, event);
 ```
 
 This will append the cookie popup to the `<body>` tag with the default settings and message.
 
-### Settings
+### Options
 
 There are a number of options available to help with customisation:
 
@@ -92,12 +92,15 @@ $('body').ihavecookies({
 });
 ```
 
+### Events
+
+Use `reinit` to reopen ihavecookies when clicking on an element. This opens the message with the previously selected checkboxes ticked.
+
 ### Methods
 
 `$.fn.ihavecookies.cookie()` returns the value of the `cookieControlPrefs` cookie.
 
 `$.fn.ihavecookies.preference(cookieTypeValue)` returns `true` if the the cookie type has been accepted, otherwise `false`.
-
 
 ### Styling
 

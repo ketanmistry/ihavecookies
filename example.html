@@ -5,30 +5,37 @@
     <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
     <script type="text/javascript" src="jquery.ihavecookies.js"></script>
     <script type="text/javascript">
+    var options = {
+        title: '&#x1F36A; Accept Cookies & Privacy Policy?',
+        message: 'There are no cookies used on this site, but if there were this message could be customised to provide more details. Click the <strong>accept</strong> button below to see the optional callback in action...',
+        delay: 600,
+        expires: 1,
+        link: '#privacy',
+        onAccept: function(){
+            var myPreferences = $.fn.ihavecookies.cookie();
+            console.log('Yay! The following preferences were saved...');
+            console.log(myPreferences);
+        },
+        uncheckBoxes: true,
+        acceptBtnLabel: 'Accept Cookies',
+        moreInfoLabel: 'More information',
+        cookieTypesTitle: 'Select which cookies you want to accept',
+        fixedCookieTypeLabel: 'Essential',
+        fixedCookieTypeDesc: 'These are essential for the website to work correctly.'
+    }
+
     $(document).ready(function() {
-        $('body').ihavecookies({
-            title: '&#x1F36A; Accept Cookies & Privacy Policy?',
-            message: 'There are no cookies used on this site, but if there were this message could be customised to provide more details. Click the <strong>accept</strong> button below to see the optional callback in action...',
-            delay: 600,
-            expires: 1,
-            link: '#privacy',
-            onAccept: function(){
-                var myPreferences = $.fn.ihavecookies.cookie();
-                console.log('Yay! The following preferences were saved...');
-                console.log(myPreferences);
-            },
-            uncheckBoxes: true,
-            acceptBtnLabel: 'Accept Cookies',
-            moreInfoLabel: 'More information',
-            cookieTypesTitle: 'Select which cookies you want to accept',
-            fixedCookieTypeLabel: 'Essential',
-            fixedCookieTypeDesc: 'These are essential for the website to work correctly.'
-        });
+        $('body').ihavecookies(options);
 
         if ($.fn.ihavecookies.preference('marketing') === true) {
             console.log('This should run because marketing is accepted.');
         }
+
+        $('#ihavecookiesBtn').on('click', function(){
+            $('body').ihavecookies(options, 'reinit');
+        });
     });
+
     </script>
     <link href="https://fonts.googleapis.com/css?family=Roboto+Slab|Quicksand:400,500" rel="stylesheet">
     <style type="text/css">
@@ -99,6 +106,9 @@
         border-radius: 3px;
         border: 1px solid #ebebeb;
     }
+    button#ihavecookiesBtn {
+        margin-left: 0px !important;
+    }
     /* Cookie Dialog */
     #gdpr-cookie-message {
         position: fixed;
@@ -152,7 +162,8 @@
         border-bottom-color: var(--red);
         transition: all 0.3s ease-in;
     }
-    #gdpr-cookie-message button {
+    #gdpr-cookie-message button,
+    button#ihavecookiesBtn {
         border: none;
         background: var(--red);
         color: white;
@@ -187,7 +198,9 @@
     <div class="container">
         <h1>ihavecookies jQuery Plugin in action</h1>
         <p>When you load this page you will see an example of the cookie message popup in the bottom right corner.</p>
-        <p>If you don't see it, clear your cookies or delete the cookie called <code>cookieControl</code>.</p>
+        <p>If you don't see it then you've probably already accepted it. Click the button below to reopen it.</p>
+
+        <p><button id="ihavecookiesBtn">Open Settings</button></p>
 
         <h3>Checkboxes</h3>
 
