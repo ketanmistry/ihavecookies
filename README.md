@@ -57,7 +57,7 @@ Use `reinit` to reopen ihavecookies when clicking on an element. This opens the 
 
 ```javascript
 $('button').click(function(){
-    $('body').ihavecookies(options, 'init');
+    $('body').ihavecookies(options, 'reinit');
 });
 ```
 
