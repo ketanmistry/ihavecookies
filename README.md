@@ -16,7 +16,14 @@ Download the latest version and include it within your page along with jQuery (1
 Then initialise the plugin using:
 
 ```javascript
+// With the default options
 $('body').ihavecookies();
+
+// Or with customised options
+var options = {
+    title: ...
+}
+$('body').ihavecookies(options);
 ```
 
 This will append the cookie popup to the `<body>` tag with the default settings and message.
@@ -41,6 +48,18 @@ cookieTypesTitle | 'Select cookies to accept' | Title for customise cookies sect
 fixedCookieTypeLabel | 'Necessary' | Label for the "necessary" cookie type
 fixedCookieTypeDesc | 'These are cookies that are essential for the website to work correctly.' | Description for the "necessary" cookie type
 cookieTypes | Array | Array of cookie types for which to show checkboxes for - See code example below.
+
+### Events
+
+#### Reopening the message
+
+Use `reinit` to reopen ihavecookies when clicking on an element. This opens the message with the previously selected checkboxes ticked.
+
+```javascript
+$('button').click(function(){
+    $('body').ihavecookies(options, 'init');
+});
+```
 
 ### Example Code
 
@@ -76,18 +95,6 @@ $('body').ihavecookies({
             description: 'Cookies related to marketing, e.g. newsletters, social media, etc'
         }
     ],
-});
-```
-
-### Events
-
-#### Reopening the message
-
-Use `reinit` to reopen ihavecookies when clicking on an element. This opens the message with the previously selected checkboxes ticked.
-
-```javascript
-$('button').click(function(){
-    $('body').ihavecookies(options, 'init');
 });
 ```
 
