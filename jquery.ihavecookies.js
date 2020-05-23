@@ -48,6 +48,8 @@
             link: '/privacy-policy',
             delay: 2000,
             expires: 30,
+            secure: true,
+            samesite:'lax',
             moreInfoLabel: 'More information',
             acceptBtnLabel: 'Accept Cookies',
             advancedBtnLabel: 'Customise Cookies',
@@ -98,7 +100,7 @@
             // When accept button is clicked drop cookie
             $('body').on('click','#gdpr-cookie-accept', function(){
                 // Set cookie
-                dropCookie(true, settings.expires);
+                dropCookie(true, settings.expires,settings.secure,settings.samesite);
 
                 // If 'data-auto' is set to ON, tick all checkboxes because
                 // the user hasn't clicked the customise cookies button
@@ -109,7 +111,7 @@
                 $.each($('input[name="gdpr[]"]').serializeArray(), function(i, field){
                     prefs.push(field.value);
                 });
-                setCookie('cookieControlPrefs', encodeURIComponent(JSON.stringify(prefs)), 365);
+                setCookie('cookieControlPrefs', encodeURIComponent(JSON.stringify(prefs)), 365,true,'lax');
 
                 // Run callback function
                 settings.onAccept.call(this);
@@ -131,7 +133,7 @@
             if (myCookie == 'false') {
                 cookieVal = false;
             }
-            dropCookie(cookieVal, settings.expires);
+            dropCookie(cookieVal, settings.expires,settings.secure,settings.samesite);
         }
 
         // Uncheck any checkboxes on page load
@@ -169,8 +171,8 @@
     | Function to drop the cookie with a boolean value of true.
     |
     */
-    var dropCookie = function(value, expiryDays) {
-        setCookie('cookieControl', value, expiryDays);
+    var dropCookie = function(value, expiryDays,secure,samesite) {
+        setCookie('cookieControl', value, expiryDays,secure,samesite);
         $('#gdpr-cookie-message').fadeOut('fast', function() {
             $(this).remove();
         });
@@ -184,11 +186,11 @@
     | Sets cookie with 'name' and value of 'value' for 'expiry_days'.
     |
     */
-    var setCookie = function(name, value, expiry_days) {
+    var setCookie = function(name, value, expiry_days,secure,samesite) {
         var d = new Date();
         d.setTime(d.getTime() + (expiry_days*24*60*60*1000));
         var expires = "expires=" + d.toUTCString();
-        document.cookie = name + "=" + value + ";" + expires + ";path=/";
+        document.cookie = name + "=" + value + ";" + expires + ";path=/;"+"samesite="+samesite+";"+(secure?"secure":"");
         return getCookie(name);
     };
 
