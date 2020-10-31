@@ -120,7 +120,8 @@
             }, settings.delay);
 
             // When accept button is clicked drop cookie
-            $('body').on('click','#gdpr-cookie-accept', function(){
+            const body = $('body');
+            body.on('click','#gdpr-cookie-accept', function(){
                 // Set cookie
                 dropCookie(true, settings.expires);
 
@@ -140,7 +141,7 @@
             });
 
             // Toggle advanced cookie options
-            $('body').on('click', '#gdpr-cookie-advanced', function(){
+            body.on('click', '#gdpr-cookie-advanced', function(){
                 // Uncheck all checkboxes except for the disabled 'necessary'
                 // one and set 'data-auto' to OFF for all. The user can now
                 // select the cookies they want to accept.
