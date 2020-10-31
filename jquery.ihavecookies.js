@@ -22,10 +22,10 @@
     */
     $.fn.ihavecookies = function(options, event) {
 
-        var $element = $(this);
+        const $element = $(this);
 
         // Set defaults
-        var settings = $.extend({
+        const settings = $.extend({
             cookieTypes: [
                 {
                     type: 'Site Preferences',
@@ -56,9 +56,10 @@
             acceptBtnLabel: 'Accept Cookies',
             advancedBtnLabel: 'Customise Cookies',
             cookieTypesTitle: 'Select cookies to accept',
-            fixedCookieTypeLabel:'Necessary',
+            fixedCookieTypeLabel: 'Necessary',
             fixedCookieTypeDesc: 'These are cookies that are essential for the website to work correctly.',
-            onAccept: function(){},
+            onAccept: function () {
+            },
             uncheckBoxes: false
         }, options);
 
@@ -76,7 +77,7 @@
                 '</li>';
 
             // Generate list of cookie type checkboxes
-            preferences = JSON.parse(myCookiePrefs);
+            const preferences = JSON.parse(myCookiePrefs);
             $.each(settings.cookieTypes, function(index, field) {
                 if (field.type !== '' && field.value !== '') {
                     var cookieTypeDescription = '';
@@ -92,7 +93,7 @@
             });
 
             // Display cookie message on page
-            var cookieMessage =
+            const cookieMessage =
                 '<div id="gdpr-cookie-message">' +
                     '<h4>' + settings.title + '</h4>' +
                     '<p>' + settings.message + ' <a href="' + settings.link + '">' + settings.moreInfoLabel + '</a></p>' +
@@ -130,7 +131,7 @@
                 $('input[name="gdpr[]"][data-auto="on"]').prop('checked', true);
 
                 // Save users cookie preferences (in a cookie!)
-                var prefs = [];
+                let prefs = [];
                 $.each($('input[name="gdpr[]"]').serializeArray(), function(i, field){
                     prefs.push(field.value);
                 });
@@ -168,14 +169,14 @@
 
     // Method to get cookie value
     $.fn.ihavecookies.cookie = function() {
-        var preferences = getCookie('cookieControlPrefs');
+        const preferences = getCookie('cookieControlPrefs');
         return JSON.parse(preferences);
     };
 
     // Method to check if user cookie preference exists
     $.fn.ihavecookies.preference = function(cookieTypeValue) {
-        var control = getCookie('cookieControl');
-        var preferences = getCookie('cookieControlPrefs');
+        const control = getCookie('cookieControl');
+        let preferences = getCookie('cookieControlPrefs');
         preferences = JSON.parse(preferences);
         if (control === false) {
             return false;
@@ -210,9 +211,9 @@
     |
     */
     var setCookie = function(name, value, expiry_days) {
-        var d = new Date();
+        const d = new Date();
         d.setTime(d.getTime() + (expiry_days*24*60*60*1000));
-        var expires = "expires=" + d.toUTCString();
+        const expires = "expires=" + d.toUTCString();
         document.cookie = name + "=" + value + ";" + expires + ";path=/";
         return getCookie(name);
     };
@@ -226,11 +227,11 @@
     |
     */
     var getCookie = function(name) {
-        var cookie_name = name + "=";
-        var decodedCookie = decodeURIComponent(document.cookie);
-        var ca = decodedCookie.split(';');
-        for (var i = 0; i < ca.length; i++) {
-            var c = ca[i];
+        const cookie_name = name + "=";
+        const decodedCookie = decodeURIComponent(document.cookie);
+        const ca = decodedCookie.split(';');
+        for (let i = 0; i < ca.length; i++) {
+            let c = ca[i];
             while (c.charAt(0) == ' ') {
                 c = c.substring(1);
             }
