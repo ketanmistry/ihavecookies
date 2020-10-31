@@ -134,7 +134,7 @@
                 $.each($('input[name="gdpr[]"]').serializeArray(), function(i, field){
                     prefs.push(field.value);
                 });
-                setCookie('cookieControlPrefs', encodeURIComponent(JSON.stringify(prefs)), 365);
+                setCookie('cookieControlPrefs', encodeURIComponent(JSON.stringify(prefs)), settings.expires);
 
                 // Run callback function
                 settings.onAccept.call(this);
