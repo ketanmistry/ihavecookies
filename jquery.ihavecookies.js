@@ -95,7 +95,7 @@
             var cookieMessage =
                 '<div id="gdpr-cookie-message">' +
                     '<h4>' + settings.title + '</h4>' +
-                    '<p>' + settings.message + ' <a href="' + settings.link + '">' + settings.moreInfoLabel + '</a>' +
+                    '<p>' + settings.message + ' <a href="' + settings.link + '">' + settings.moreInfoLabel + '</a></p>' +
                     '<div id="gdpr-cookie-types" style="display:none;">' +
                         '<h5>' + settings.cookieTypesTitle + '</h5>' +
                         '<ul>' + cookieTypes + '</ul>' +
