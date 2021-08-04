@@ -120,7 +120,9 @@ let fn_ihavecookies = function(element, options, event) {
 
                 // If 'data-auto' is set to ON, tick all checkboxes because
                 // the user hasn't clicked the customise cookies button
-                $('input[name="gdpr[]"][data-auto="on"]').prop('checked', true);
+                // $('input[name="gdpr[]"][data-auto="on"]').prop('checked', true);
+                document.querySelectorAll('input[name="gdpr[]"][data-auto="on"]')
+                    .forEach(check => check.checked = true);
 
                 // Save users cookie preferences (in a cookie!)
                 let prefs = [];
@@ -137,7 +139,12 @@ let fn_ihavecookies = function(element, options, event) {
                 // Uncheck all checkboxes except for the disabled 'necessary'
                 // one and set 'data-auto' to OFF for all. The user can now
                 // select the cookies they want to accept.
-                $('input[name="gdpr[]"]:not(:disabled)').attr('data-auto', 'off').prop('checked', false);
+                // $('input[name="gdpr[]"]:not(:disabled)').attr('data-auto', 'off').prop('checked', false);
+                document.querySelectorAll('input[name="gdpr[]"]:not(:disabled)')
+                    .forEach(check => {
+                        check.checked = false;
+                        check.dataset.auto = 'off';
+                    });
                 $('#gdpr-cookie-types').slideDown('fast', function(){
                     $('#gdpr-cookie-advanced').prop('disabled', true);
                 });
