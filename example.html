@@ -13,10 +13,14 @@
         link: '#privacy',
         cookieTypes: [
             {
-                type: 'Site Preferences',
-                value: 'preferences',
-                description: 'These are cookies that are related to your site preferences, ' +
-                    'e.g. remembering your username, site colours, etc.'
+                type: 'Analytics',
+                value: 'analytics',
+                description: 'Cookies related to site visits, browser types, etc.'
+            },
+            {
+                type: 'Marketing',
+                value: 'marketing',
+                description: 'Cookies related to marketing, e.g. newsletters, social media, etc'
             }],
         onAccept: function(){
             var myPreferences = fn_ihavecookies_get_cookie();

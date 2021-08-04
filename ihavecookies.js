@@ -113,29 +113,29 @@ let fn_ihavecookies = function(element, options, event) {
                 //     $('input#gdpr-cookietype-' + field).prop('checked', true);
                 // });
             }
+
+            document.getElementById('gdpr-cookie-accept').addEventListener('click', event => {
+                // Set cookie
+                dropCookie(true, settings.expires);
+
+                // If 'data-auto' is set to ON, tick all checkboxes because
+                // the user hasn't clicked the customise cookies button
+                $('input[name="gdpr[]"][data-auto="on"]').prop('checked', true);
+
+                // Save users cookie preferences (in a cookie!)
+                let prefs = [];
+                $.each($('input[name="gdpr[]"]').serializeArray(), function(i, field){
+                    prefs.push(field.value);
+                });
+                setCookie('cookieControlPrefs', encodeURIComponent(JSON.stringify(prefs)), settings.expires);
+
+                // Run callback function
+                settings.onAccept.call(this);
+            });
+
         }, settings.delay);
 
-        // When accept button is clicked drop cookie
         const body = $('body');
-        body.on('click','#gdpr-cookie-accept', function(){
-            // Set cookie
-            dropCookie(true, settings.expires);
-
-            // If 'data-auto' is set to ON, tick all checkboxes because
-            // the user hasn't clicked the customise cookies button
-            $('input[name="gdpr[]"][data-auto="on"]').prop('checked', true);
-
-            // Save users cookie preferences (in a cookie!)
-            let prefs = [];
-            $.each($('input[name="gdpr[]"]').serializeArray(), function(i, field){
-                prefs.push(field.value);
-            });
-            setCookie('cookieControlPrefs', encodeURIComponent(JSON.stringify(prefs)), settings.expires);
-
-            // Run callback function
-            settings.onAccept.call(this);
-        });
-
         // Toggle advanced cookie options
         body.on('click', '#gdpr-cookie-advanced', function(){
             // Uncheck all checkboxes except for the disabled 'necessary'
