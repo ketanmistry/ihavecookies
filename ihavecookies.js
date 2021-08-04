@@ -20,8 +20,7 @@
 */
 let fn_ihavecookies = function(element, options, event) {
 
-    // Set defaults
-    const settings = $.extend({
+    const defaultSettings = {
         cookieTypes: [
             {
                 type: 'Site Preferences',
@@ -57,7 +56,8 @@ let fn_ihavecookies = function(element, options, event) {
         onAccept: function () {
         },
         uncheckBoxes: false
-    }, options);
+    };
+    const settings = Object.assign(defaultSettings, options);
 
     var myCookie = getCookie('cookieControl');
     var myCookiePrefs = getCookie('cookieControlPrefs');
