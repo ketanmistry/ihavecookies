@@ -89,8 +89,9 @@ let fn_ihavecookies = function(element, options, event) {
         }
 
         // Display cookie message on page
-        const cookieMessage =
-            '<div id="gdpr-cookie-message">' +
+        const cookieMessage = document.createElement('div');
+        cookieMessage.id = 'gdpr-cookie-message';
+        cookieMessage.innerHTML =
                 '<h4>' + settings.title + '</h4>' +
                 '<p>' + settings.message + ' <a href="' + settings.link + '">' + settings.moreInfoLabel + '</a></p>' +
                 '<div id="gdpr-cookie-types" style="display:none;">' +
@@ -100,10 +101,10 @@ let fn_ihavecookies = function(element, options, event) {
                 '<p>' +
                     '<button id="gdpr-cookie-accept" type="button">' + settings.acceptBtnLabel + '</button>' +
                     '<button id="gdpr-cookie-advanced" type="button">' + settings.advancedBtnLabel + '</button>' +
-                '</p>' +
-            '</div>';
+                '</p>'
+        ;
         setTimeout(function(){
-            $(element).append(cookieMessage);
+            element.appendChild(cookieMessage);
             $('#gdpr-cookie-message').hide().fadeIn('slow', function(){
                 // If reinit'ing, open the advanced section of message
                 // and re-check all previously selected options.

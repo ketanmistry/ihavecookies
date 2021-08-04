@@ -39,14 +39,14 @@
 
     ready(() => {
         /* Do things after DOM has fully loaded */
-        fn_ihavecookies('body', options);
+        fn_ihavecookies(document.body, options);
 
         if (fn_ihavecookies_get_preference('marketing') === true) {
             console.log('This should run because marketing is accepted.');
         }
 
         document.getElementById('ihavecookiesBtn').addEventListener("click", (e) => {
-            fn_ihavecookies('body', options, 'reinit');
+            fn_ihavecookies(document.body, options, 'reinit');
         });
     });
 
