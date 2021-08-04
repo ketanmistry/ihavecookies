@@ -73,7 +73,6 @@ let fn_ihavecookies = function(element, options, event) {
             '</li>';
 
         // Generate list of cookie type checkboxes
-        const preferences = JSON.parse(myCookiePrefs);
         for (let field of settings.cookieTypes) {
             if (field.type !== '' && field.value !== '') {
                 let cookieTypeDescription = '';
@@ -106,6 +105,7 @@ let fn_ihavecookies = function(element, options, event) {
         setTimeout(function(){
             element.appendChild(cookieMessage);
             if (event === 'reinit') {
+                // const preferences = JSON.parse(myCookiePrefs);
                 //TODO:  If reinit'ing, open the advanced section of message
                 // and re-check all previously selected options.
                 // $('#gdpr-cookie-advanced').trigger('click');
