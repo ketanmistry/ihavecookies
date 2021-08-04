@@ -59,9 +59,9 @@ let fn_ihavecookies = function(element, options, event) {
     };
     const settings = Object.assign(defaultSettings, options);
 
-    var myCookie = getCookie('cookieControl');
-    var myCookiePrefs = getCookie('cookieControlPrefs');
-    if (!myCookie || !myCookiePrefs || event == 'reinit') {
+    const myCookie = getCookie('cookieControl');
+    const myCookiePrefs = getCookie('cookieControlPrefs');
+    if (!myCookie || !myCookiePrefs || event === 'reinit') {
         // Remove all instances of the cookie message so it's not duplicated
         $('#gdpr-cookie-message').remove();
 
@@ -149,7 +149,7 @@ let fn_ihavecookies = function(element, options, event) {
         });
 
     } else {
-        var cookieVal = true;
+        let cookieVal = true;
         if (myCookie == 'false') {
             cookieVal = false;
         }
