@@ -114,7 +114,7 @@ let fn_ihavecookies = function(element, options, event) {
                 // });
             }
 
-            document.getElementById('gdpr-cookie-accept').addEventListener('click', event => {
+            document.getElementById('gdpr-cookie-accept').addEventListener('click', () => {
                 // Set cookie
                 dropCookie(true, settings.expires);
 
@@ -133,19 +133,17 @@ let fn_ihavecookies = function(element, options, event) {
                 settings.onAccept.call(this);
             });
 
-        }, settings.delay);
-
-        const body = $('body');
-        // Toggle advanced cookie options
-        body.on('click', '#gdpr-cookie-advanced', function(){
-            // Uncheck all checkboxes except for the disabled 'necessary'
-            // one and set 'data-auto' to OFF for all. The user can now
-            // select the cookies they want to accept.
-            $('input[name="gdpr[]"]:not(:disabled)').attr('data-auto', 'off').prop('checked', false);
-            $('#gdpr-cookie-types').slideDown('fast', function(){
-                $('#gdpr-cookie-advanced').prop('disabled', true);
+            document.getElementById('gdpr-cookie-advanced').addEventListener('click', () => {
+                // Uncheck all checkboxes except for the disabled 'necessary'
+                // one and set 'data-auto' to OFF for all. The user can now
+                // select the cookies they want to accept.
+                $('input[name="gdpr[]"]:not(:disabled)').attr('data-auto', 'off').prop('checked', false);
+                $('#gdpr-cookie-types').slideDown('fast', function(){
+                    $('#gdpr-cookie-advanced').prop('disabled', true);
+                });
             });
-        });
+
+            }, settings.delay);
 
     } else {
         let cookieVal = true;
