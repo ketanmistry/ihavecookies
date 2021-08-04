@@ -25,7 +25,6 @@
     }
 
     // Without jQuery
-    // Define a convenience method and use it
     let ready = (callback) => {
         if (document.readyState !== "loading") callback();
         else document.addEventListener("DOMContentLoaded", callback);
@@ -33,13 +32,13 @@
 
     ready(() => {
         /* Do things after DOM has fully loaded */
-        fn_ihavecookies($('body'), options);
+        fn_ihavecookies('body', options);
 
         if (fn_ihavecookies_get_preference('marketing') === true) {
             console.log('This should run because marketing is accepted.');
         }
 
-        $('#ihavecookiesBtn').on('click', function(){
+        document.getElementById('ihavecookiesBtn').addEventListener("click", (e) => {
             fn_ihavecookies(fn_ihavecookies, options, 'reinit');
         });
     });
