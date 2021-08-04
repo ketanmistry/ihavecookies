@@ -12,7 +12,7 @@
         expires: 1,
         link: '#privacy',
         onAccept: function(){
-            var myPreferences = $.fn.ihavecookies.cookie();
+            var myPreferences = fn_ihavecookies_get_cookie();
             console.log('Yay! The following preferences were saved...');
             console.log(myPreferences);
         },
@@ -24,15 +24,23 @@
         fixedCookieTypeDesc: 'These are essential for the website to work correctly.'
     }
 
-    $(document).ready(function() {
-        $('body').ihavecookies(options);
+    // Without jQuery
+    // Define a convenience method and use it
+    let ready = (callback) => {
+        if (document.readyState !== "loading") callback();
+        else document.addEventListener("DOMContentLoaded", callback);
+    }
 
-        if ($.fn.ihavecookies.preference('marketing') === true) {
+    ready(() => {
+        /* Do things after DOM has fully loaded */
+        fn_ihavecookies($('body'), options);
+
+        if (fn_ihavecookies_get_preference('marketing') === true) {
             console.log('This should run because marketing is accepted.');
         }
 
         $('#ihavecookiesBtn').on('click', function(){
-            $('body').ihavecookies(options, 'reinit');
+            fn_ihavecookies(fn_ihavecookies, options, 'reinit');
         });
     });
 

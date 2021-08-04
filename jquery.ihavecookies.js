@@ -7,7 +7,7 @@
  * http://www.opensource.org/licenses/mit-license.php
  *
  */
-(function($) {
+// (function($) {
 
     /*
     |--------------------------------------------------------------------------
@@ -20,9 +20,9 @@
     | @param event - 'reinit' to reopen the cookie message
     |
     */
-    $.fn.ihavecookies = function(options, event) {
+    let fn_ihavecookies = function(element, options, event) {
 
-        const $element = $(this);
+        // const $element = $(this);
 
         // Set defaults
         const settings = $.extend({
@@ -107,7 +107,7 @@
                     '</p>' +
                 '</div>';
             setTimeout(function(){
-                $($element).append(cookieMessage);
+                $(element).append(cookieMessage);
                 $('#gdpr-cookie-message').hide().fadeIn('slow', function(){
                     // If reinit'ing, open the advanced section of message
                     // and re-check all previously selected options.
@@ -168,13 +168,13 @@
     };
 
     // Method to get cookie value
-    $.fn.ihavecookies.cookie = function() {
+    let fn_ihavecookies_get_cookie = function() {
         const preferences = getCookie('cookieControlPrefs');
         return JSON.parse(preferences);
     };
 
     // Method to check if user cookie preference exists
-    $.fn.ihavecookies.preference = function(cookieTypeValue) {
+    let fn_ihavecookies_get_preference = function(cookieTypeValue) {
         const control = getCookie('cookieControl');
         let preferences = getCookie('cookieControlPrefs');
         preferences = JSON.parse(preferences);
@@ -242,4 +242,4 @@
         return false;
     };
 
-}(jQuery));
+// }(jQuery));
