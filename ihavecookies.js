@@ -104,15 +104,6 @@ let fn_ihavecookies = function(element, options, event) {
         ;
         setTimeout(function(){
             element.appendChild(cookieMessage);
-            if (event === 'reinit') {
-                // const preferences = JSON.parse(myCookiePrefs);
-                //TODO:  If reinit'ing, open the advanced section of message
-                // and re-check all previously selected options.
-                // $('#gdpr-cookie-advanced').trigger('click');
-                // $.each(preferences, function(index, field) {
-                //     $('input#gdpr-cookietype-' + field).prop('checked', true);
-                // });
-            }
 
             document.getElementById('gdpr-cookie-accept').addEventListener('click', () => {
                 // Set cookie
@@ -150,7 +141,17 @@ let fn_ihavecookies = function(element, options, event) {
                 });
             });
 
-            }, settings.delay);
+            if (event === 'reinit') {
+                // const preferences = JSON.parse(myCookiePrefs);
+                //If reinit'ing, open the advanced section of message
+                //TODO:  and re-check all previously selected options.
+                document.getElementById('gdpr-cookie-advanced').dispatchEvent(new Event('click'));
+                // $.each(preferences, function(index, field) {
+                //     $('input#gdpr-cookietype-' + field).prop('checked', true);
+                // });
+            }
+
+        }, settings.delay);
 
     } else {
         let cookieVal = true;
