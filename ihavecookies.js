@@ -142,13 +142,13 @@ let fn_ihavecookies = function(element, options, event) {
             });
 
             if (event === 'reinit') {
-                // const preferences = JSON.parse(myCookiePrefs);
-                //If reinit'ing, open the advanced section of message
-                //TODO:  and re-check all previously selected options.
+                const preferences = JSON.parse(myCookiePrefs);
+                // If reinit'ing, open the advanced section of message
+                // and re-check all previously selected options.
                 document.getElementById('gdpr-cookie-advanced').dispatchEvent(new Event('click'));
-                // $.each(preferences, function(index, field) {
-                //     $('input#gdpr-cookietype-' + field).prop('checked', true);
-                // });
+                for (let field of preferences) {
+                    document.getElementById('gdpr-cookietype-' + field).checked = true;
+                }
             }
 
         }, settings.delay);
