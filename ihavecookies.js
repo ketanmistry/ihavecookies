@@ -63,7 +63,7 @@ let fn_ihavecookies = function(element, options, event) {
     const myCookiePrefs = getCookie('cookieControlPrefs');
     if (!myCookie || !myCookiePrefs || event === 'reinit') {
         // Remove all instances of the cookie message so it's not duplicated
-        $('#gdpr-cookie-message').remove();
+        document.querySelectorAll('#gdpr-cookie-message').forEach(e => e.remove());
 
         // Set the 'necessary' cookie type checkbox which can not be unchecked
         var cookieTypes =
