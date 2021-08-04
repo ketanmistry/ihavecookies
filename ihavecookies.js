@@ -66,7 +66,7 @@ let fn_ihavecookies = function(element, options, event) {
         document.querySelectorAll('#gdpr-cookie-message').forEach(e => e.remove());
 
         // Set the 'necessary' cookie type checkbox which can not be unchecked
-        var cookieTypes =
+        let cookieTypes =
             '<li>' +
                 '<input type="checkbox" name="gdpr[]" value="necessary" checked="checked" disabled="disabled"> ' +
                 '<label title="' + settings.fixedCookieTypeDesc + '">' + settings.fixedCookieTypeLabel + '</label>' +
@@ -74,19 +74,19 @@ let fn_ihavecookies = function(element, options, event) {
 
         // Generate list of cookie type checkboxes
         const preferences = JSON.parse(myCookiePrefs);
-        $.each(settings.cookieTypes, function(index, field) {
+        for (let field of settings.cookieTypes) {
             if (field.type !== '' && field.value !== '') {
-                var cookieTypeDescription = '';
+                let cookieTypeDescription = '';
                 if (field.description !== false) {
                     cookieTypeDescription = ' title="' + field.description + '"';
                 }
                 cookieTypes +=
                     '<li>' +
-                        '<input type="checkbox" id="gdpr-cookietype-' + field.value + '" name="gdpr[]" value="' + field.value + '" data-auto="on"> ' +
-                        '<label for="gdpr-cookietype-' + field.value + '"' + cookieTypeDescription + '>' + field.type + '</label>' +
+                    '<input type="checkbox" id="gdpr-cookietype-' + field.value + '" name="gdpr[]" value="' + field.value + '" data-auto="on"> ' +
+                    '<label for="gdpr-cookietype-' + field.value + '"' + cookieTypeDescription + '>' + field.type + '</label>' +
                     '</li>';
             }
-        });
+        }
 
         // Display cookie message on page
         const cookieMessage =

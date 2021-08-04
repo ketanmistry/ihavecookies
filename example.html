@@ -11,6 +11,13 @@
         delay: 600,
         expires: 1,
         link: '#privacy',
+        cookieTypes: [
+            {
+                type: 'Site Preferences',
+                value: 'preferences',
+                description: 'These are cookies that are related to your site preferences, ' +
+                    'e.g. remembering your username, site colours, etc.'
+            }],
         onAccept: function(){
             var myPreferences = fn_ihavecookies_get_cookie();
             console.log('Yay! The following preferences were saved...');
