@@ -7,7 +7,7 @@
  * http://www.opensource.org/licenses/mit-license.php
  *
  */
-(function($) {
+// (function($) {
 
     /*
     |--------------------------------------------------------------------------
@@ -20,9 +20,9 @@
     | @param event - 'reinit' to reopen the cookie message
     |
     */
-    $.fn.ihavecookies = function(options, event) {
+    let fn_ihavecookies = function(element, options, event) {
 
-        const $element = $(this);
+        // const $element = $(this);
 
         // Set defaults
         const settings = $.extend({
@@ -72,8 +72,8 @@
             // Set the 'necessary' cookie type checkbox which can not be unchecked
             var cookieTypes =
                 '<li>' +
-                '<input type="checkbox" name="gdpr[]" value="necessary" checked="checked" disabled="disabled"> ' +
-                '<label title="' + settings.fixedCookieTypeDesc + '">' + settings.fixedCookieTypeLabel + '</label>' +
+                    '<input type="checkbox" name="gdpr[]" value="necessary" checked="checked" disabled="disabled"> ' +
+                    '<label title="' + settings.fixedCookieTypeDesc + '">' + settings.fixedCookieTypeLabel + '</label>' +
                 '</li>';
 
             // Generate list of cookie type checkboxes
@@ -86,8 +86,8 @@
                     }
                     cookieTypes +=
                         '<li>' +
-                        '<input type="checkbox" id="gdpr-cookietype-' + field.value + '" name="gdpr[]" value="' + field.value + '" data-auto="on"> ' +
-                        '<label for="gdpr-cookietype-' + field.value + '"' + cookieTypeDescription + '>' + field.type + '</label>' +
+                            '<input type="checkbox" id="gdpr-cookietype-' + field.value + '" name="gdpr[]" value="' + field.value + '" data-auto="on"> ' +
+                            '<label for="gdpr-cookietype-' + field.value + '"' + cookieTypeDescription + '>' + field.type + '</label>' +
                         '</li>';
                 }
             });
@@ -95,19 +95,19 @@
             // Display cookie message on page
             const cookieMessage =
                 '<div id="gdpr-cookie-message">' +
-                '<h4>' + settings.title + '</h4>' +
-                '<p>' + settings.message + ' <a href="' + settings.link + '">' + settings.moreInfoLabel + '</a></p>' +
-                '<div id="gdpr-cookie-types" style="display:none;">' +
-                '<h5>' + settings.cookieTypesTitle + '</h5>' +
-                '<ul>' + cookieTypes + '</ul>' +
-                '</div>' +
-                '<p>' +
-                '<button id="gdpr-cookie-accept" type="button">' + settings.acceptBtnLabel + '</button>' +
-                '<button id="gdpr-cookie-advanced" type="button">' + settings.advancedBtnLabel + '</button>' +
-                '</p>' +
+                    '<h4>' + settings.title + '</h4>' +
+                    '<p>' + settings.message + ' <a href="' + settings.link + '">' + settings.moreInfoLabel + '</a></p>' +
+                    '<div id="gdpr-cookie-types" style="display:none;">' +
+                        '<h5>' + settings.cookieTypesTitle + '</h5>' +
+                        '<ul>' + cookieTypes + '</ul>' +
+                    '</div>' +
+                    '<p>' +
+                        '<button id="gdpr-cookie-accept" type="button">' + settings.acceptBtnLabel + '</button>' +
+                        '<button id="gdpr-cookie-advanced" type="button">' + settings.advancedBtnLabel + '</button>' +
+                    '</p>' +
                 '</div>';
             setTimeout(function(){
-                $($element).append(cookieMessage);
+                $(element).append(cookieMessage);
                 $('#gdpr-cookie-message').hide().fadeIn('slow', function(){
                     // If reinit'ing, open the advanced section of message
                     // and re-check all previously selected options.
@@ -168,13 +168,13 @@
     };
 
     // Method to get cookie value
-    $.fn.ihavecookies.cookie = function() {
+    let fn_ihavecookies_get_cookie = function() {
         const preferences = getCookie('cookieControlPrefs');
         return JSON.parse(preferences);
     };
 
     // Method to check if user cookie preference exists
-    $.fn.ihavecookies.preference = function(cookieTypeValue) {
+    let fn_ihavecookies_get_preference = function(cookieTypeValue) {
         const control = getCookie('cookieControl');
         let preferences = getCookie('cookieControlPrefs');
         preferences = JSON.parse(preferences);
@@ -242,4 +242,4 @@
         return false;
     };
 
-}(jQuery));
+// }(jQuery));
