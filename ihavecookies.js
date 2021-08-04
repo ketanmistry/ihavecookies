@@ -105,16 +105,14 @@ let fn_ihavecookies = function(element, options, event) {
         ;
         setTimeout(function(){
             element.appendChild(cookieMessage);
-            $('#gdpr-cookie-message').hide().fadeIn('slow', function(){
-                // If reinit'ing, open the advanced section of message
+            if (event === 'reinit') {
+                //TODO:  If reinit'ing, open the advanced section of message
                 // and re-check all previously selected options.
-                if (event == 'reinit') {
-                    $('#gdpr-cookie-advanced').trigger('click');
-                    $.each(preferences, function(index, field) {
-                        $('input#gdpr-cookietype-' + field).prop('checked', true);
-                    });
-                }
-            });
+                // $('#gdpr-cookie-advanced').trigger('click');
+                // $.each(preferences, function(index, field) {
+                //     $('input#gdpr-cookietype-' + field).prop('checked', true);
+                // });
+            }
         }, settings.delay);
 
         // When accept button is clicked drop cookie
