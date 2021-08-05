@@ -111,7 +111,6 @@ let fn_ihavecookies = function(element, options, event) {
 
                 // If 'data-auto' is set to ON, tick all checkboxes because
                 // the user hasn't clicked the customise cookies button
-                // $('input[name="gdpr[]"][data-auto="on"]').prop('checked', true);
                 document.querySelectorAll('input[name="gdpr[]"][data-auto="on"]')
                     .forEach(check => check.checked = true);
 
@@ -137,9 +136,8 @@ let fn_ihavecookies = function(element, options, event) {
                         check.checked = false;
                         check.dataset.auto = 'off';
                     });
-                $('#gdpr-cookie-types').slideDown('fast', function(){
-                    $('#gdpr-cookie-advanced').prop('disabled', true);
-                });
+                document.getElementById('gdpr-cookie-types').style.display = '';
+                document.getElementById('gdpr-cookie-advanced').disabled = true;
             });
 
             if (event === 'reinit') {
