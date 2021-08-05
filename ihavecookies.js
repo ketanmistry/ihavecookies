@@ -50,9 +50,11 @@ let fn_ihavecookies = function(element, options, event) {
         moreInfoLabel: 'More information',
         acceptBtnLabel: 'Accept Cookies',
         advancedBtnLabel: 'Customise Cookies',
+        advancedSaveBtnLabel: 'Save config',
         cookieTypesTitle: 'Select cookies to accept',
         fixedCookieTypeLabel: 'Necessary',
         fixedCookieTypeDesc: 'These are cookies that are essential for the website to work correctly.',
+        showAsModal: false,
         onAccept: function () {
         },
         uncheckBoxes: false
@@ -90,6 +92,11 @@ let fn_ihavecookies = function(element, options, event) {
         // Display cookie message on page
         const cookieMessage = document.createElement('div');
         cookieMessage.id = 'gdpr-cookie-message';
+        if (settings.showAsModal) {
+            cookieMessage.classList.add("gdpr-cookie-modal");
+        } else {
+            cookieMessage.classList.add("gdpr-cookie-bottom-right");
+        }
         cookieMessage.innerHTML =
                 '<h4>' + settings.title + '</h4>' +
                 '<p>' + settings.message + ' <a href="' + settings.link + '">' + settings.moreInfoLabel + '</a></p>' +
@@ -97,17 +104,26 @@ let fn_ihavecookies = function(element, options, event) {
                     '<h5>' + settings.cookieTypesTitle + '</h5>' +
                     '<ul>' + cookieTypes + '</ul>' +
                 '</div>' +
-                '<p>' +
+                '<p class="gdpr-cookie-buttons">' +
                     '<button id="gdpr-cookie-accept" type="button">' + settings.acceptBtnLabel + '</button>' +
                     '<button id="gdpr-cookie-advanced" type="button">' + settings.advancedBtnLabel + '</button>' +
                 '</p>'
         ;
         setTimeout(function(){
-            element.appendChild(cookieMessage);
+            if (! settings.showAsModal) {
+                element.appendChild(cookieMessage);
+            } else {
+                const cookieMessageOverlay = document.createElement('div');
+                cookieMessageOverlay.id = "gdpr-cookie-message-overlay";
+                cookieMessageOverlay.append(cookieMessage);
+                element.append(cookieMessageOverlay);
+                element = cookieMessageOverlay;
+            }
+
+
 
             document.getElementById('gdpr-cookie-accept').addEventListener('click', () => {
-                // Set cookie
-                dropCookie(true, settings.expires);
+                setCookie('cookieControl', true, settings.expires);
 
                 // If 'data-auto' is set to ON, tick all checkboxes because
                 // the user hasn't clicked the customise cookies button
@@ -126,7 +142,7 @@ let fn_ihavecookies = function(element, options, event) {
                 // Run callback function
                 settings.onAccept.call(this);
 
-                document.getElementById('gdpr-cookie-message').remove();
+                hideGdprCookieMessage(settings.showAsModal);
             });
 
             document.getElementById('gdpr-cookie-advanced').addEventListener('click', () => {
@@ -140,6 +156,9 @@ let fn_ihavecookies = function(element, options, event) {
                     });
                 document.getElementById('gdpr-cookie-types').style.display = '';
                 document.getElementById('gdpr-cookie-advanced').disabled = true;
+                //TODO?
+                // $('#gdpr-cookie-advanced').hide();
+                // $('#gdpr-cookie-accept').html(settings.advancedSaveBtnLabel);
             });
 
             if (event === 'reinit') {
@@ -163,8 +182,7 @@ let fn_ihavecookies = function(element, options, event) {
             cookieVal = false;
         }
         dropCookie(cookieVal, settings.expires);
-        let cookieMessage = document.getElementById('gdpr-cookie-message');
-        if (cookieMessage != null) cookieMessage.remove();
+        // hideGdprCookieMessage(settings.showAsModal);
     }
 
     // Uncheck any checkboxes on page load
@@ -176,6 +194,22 @@ let fn_ihavecookies = function(element, options, event) {
 
 };
 
+
+function hideGdprCookieMessage(showingAsModal) {
+    if (!showingAsModal) {
+        let cookieMessage = document.getElementById('gdpr-cookie-message');
+        if (cookieMessage != null) cookieMessage.remove();
+    } else {
+        let cookieMessage = document.getElementById('gdpr-cookie-message-overlay');
+        if (cookieMessage != null) cookieMessage.remove();
+    }
+}
+
+let fn_ihavecookies_configured = function() {
+    const control = getCookie('cookieControl');
+    return control !== false;
+}
+
 // Method to get cookie value
 let fn_ihavecookies_get_cookie = function() {
     const preferences = getCookie('cookieControlPrefs');
@@ -185,11 +219,11 @@ let fn_ihavecookies_get_cookie = function() {
 // Method to check if user cookie preference exists
 let fn_ihavecookies_get_preference = function(cookieTypeValue) {
     const control = getCookie('cookieControl');
-    let preferences = getCookie('cookieControlPrefs');
-    preferences = JSON.parse(preferences);
     if (control === false) {
         return false;
     }
+    let preferences = getCookie('cookieControlPrefs');
+    preferences = JSON.parse(preferences);
     if (preferences === false || preferences.indexOf(cookieTypeValue) === -1) {
         return false;
     }
