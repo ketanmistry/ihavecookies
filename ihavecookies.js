@@ -155,10 +155,8 @@ let fn_ihavecookies = function(element, options, event) {
                         check.dataset.auto = 'off';
                     });
                 document.getElementById('gdpr-cookie-types').style.display = '';
-                document.getElementById('gdpr-cookie-advanced').disabled = true;
-                //TODO?
-                // $('#gdpr-cookie-advanced').hide();
-                // $('#gdpr-cookie-accept').html(settings.advancedSaveBtnLabel);
+                document.getElementById('gdpr-cookie-advanced').style.display = 'none';
+                document.getElementById('gdpr-cookie-accept').innerText = settings.advancedSaveBtnLabel;
             });
 
             if (event === 'reinit') {
