@@ -125,6 +125,8 @@ let fn_ihavecookies = function(element, options, event) {
 
                 // Run callback function
                 settings.onAccept.call(this);
+
+                document.getElementById('gdpr-cookie-message').remove();
             });
 
             document.getElementById('gdpr-cookie-advanced').addEventListener('click', () => {
@@ -161,6 +163,8 @@ let fn_ihavecookies = function(element, options, event) {
             cookieVal = false;
         }
         dropCookie(cookieVal, settings.expires);
+        let cookieMessage = document.getElementById('gdpr-cookie-message');
+        if (cookieMessage != null) cookieMessage.remove();
     }
 
     // Uncheck any checkboxes on page load
@@ -202,9 +206,6 @@ let fn_ihavecookies_get_preference = function(cookieTypeValue) {
 */
 var dropCookie = function(value, expiryDays) {
     setCookie('cookieControl', value, expiryDays);
-    $('#gdpr-cookie-message').fadeOut('fast', function() {
-        $(this).remove();
-    });
 };
 
 /*
