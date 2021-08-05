@@ -117,8 +117,10 @@ let fn_ihavecookies = function(element, options, event) {
 
                 // Save users cookie preferences (in a cookie!)
                 let prefs = [];
-                $.each($('input[name="gdpr[]"]').serializeArray(), function(i, field){
-                    prefs.push(field.value);
+                document.querySelectorAll('input[name="gdpr[]"]').forEach(field => {
+                    if (field.checked) {
+                        prefs.push(field.value);
+                    }
                 });
                 setCookie('cookieControlPrefs', encodeURIComponent(JSON.stringify(prefs)), settings.expires);
 
@@ -130,7 +132,6 @@ let fn_ihavecookies = function(element, options, event) {
                 // Uncheck all checkboxes except for the disabled 'necessary'
                 // one and set 'data-auto' to OFF for all. The user can now
                 // select the cookies they want to accept.
-                // $('input[name="gdpr[]"]:not(:disabled)').attr('data-auto', 'off').prop('checked', false);
                 document.querySelectorAll('input[name="gdpr[]"]:not(:disabled)')
                     .forEach(check => {
                         check.checked = false;
@@ -147,7 +148,10 @@ let fn_ihavecookies = function(element, options, event) {
                 // and re-check all previously selected options.
                 document.getElementById('gdpr-cookie-advanced').dispatchEvent(new Event('click'));
                 for (let field of preferences) {
-                    document.getElementById('gdpr-cookietype-' + field).checked = true;
+                    let inputField = document.getElementById('gdpr-cookietype-' + field);
+                    if (inputField != null) {
+                        inputField.checked = true;
+                    }
                 }
             }
 
