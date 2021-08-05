@@ -165,7 +165,9 @@ let fn_ihavecookies = function(element, options, event) {
 
     // Uncheck any checkboxes on page load
     if (settings.uncheckBoxes === true) {
-        $('input[type="checkbox"].ihavecookies').prop('checked', false);
+        document.querySelectorAll('input[type="checkbox"].ihavecookies').forEach(field => {
+            field.checked = false;
+        });
     }
 
 };
