@@ -1,4 +1,4 @@
-# jQuery Cookie Consent Plugin (WIP)
+# jQuery Cookie Consent Plugin
 
 A lightweight jQuery plugin that displays a cookie &#x1F36A; consent message as required by EU regulation. The plugin displays a message on the user's first visit to your website and, by default, again 30 days after their last visit.
 
@@ -114,10 +114,10 @@ When the visitor accepts the message, the cookie `cookieControl` with value `tru
 
 ## Example
 
-An example of the cookie consent message can be viewed at https://iamketan.com.au or in the accompanying `example.html` file.
+An example of the cookie consent message can be viewed at https://iamketan.design or in the accompanying `example.html` file.
 
 ## Author
-[Ketan Mistry](https://iamketan.com.au) ([@ketanumistry](https://twitter.com/ketanumistry))
+[Ketan Mistry](https://iamketan.design)
 
 ## License
 
