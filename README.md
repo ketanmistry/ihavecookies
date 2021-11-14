@@ -39,6 +39,8 @@ message | "Cookies enable you to use shopping carts and to personalize your expe
 link | "/privacy-policy" | Link to your privacy policy for more information
 delay | 2000 | Time before the popup is displayed after page load (in milliseconds)
 expires | 30 | Days for the cookie to expire
+secure | true | Cookie secure option (See: https://javascript.info/cookie#secure)
+samesite | "lax" | Cookie samesite option (See: https://javascript.info/cookie#samesite)
 onAccept | function(){} | Optional callback function when 'Accept' button is clicked
 uncheckBoxes | false | Unchecks all checkboxes on page load that have class .ihavecookies applied to them. Set to true to turn this option on
 moreInfoLabel | 'More information' | Label for link to privacy policy

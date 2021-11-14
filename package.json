@@ -1,0 +1,11 @@
+{
+  "name": "ihavecookies",
+  "license": "MIT",
+  "private": false,
+  "main": "jquery.ihavecookies.js",
+  "repository": "https://github.com/ketanmistry/ihavecookies",
+  "devDependencies": {
+    "gulp": "^4.0.2",
+    "gulp-minify": "^3.1.0"
+  }
+}
