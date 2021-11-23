@@ -94,9 +94,9 @@
                     }
                 });
             }, settings.delay);
-
+            var body = $('body');
             // When accept button is clicked drop cookie
-            $('body').on('click','#gdpr-cookie-accept', function(){
+            body.on('click','#gdpr-cookie-accept', function(){
                 // Set cookie
                 dropCookie(true, settings.expires);
 
@@ -116,7 +116,7 @@
             });
 
             // Toggle advanced cookie options
-            $('body').on('click', '#gdpr-cookie-advanced', function(){
+            body.on('click', '#gdpr-cookie-advanced', function(){
                 // Uncheck all checkboxes except for the disabled 'necessary'
                 // one and set 'data-auto' to OFF for all. The user can now
                 // select the cookies they want to accept.
@@ -155,10 +155,7 @@
         if (control === false) {
             return false;
         }
-        if (preferences === false || preferences.indexOf(cookieTypeValue) === -1) {
-            return false;
-        }
-        return true;
+        return !(preferences === false || preferences.indexOf(cookieTypeValue) === -1);
     };
 
     /*
