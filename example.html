@@ -3,16 +3,27 @@
     <meta charset="UTF-8">
     <title>I have &#x1F36A;s</title>
     <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
-    <script type="text/javascript" src="jquery.ihavecookies.js"></script>
+    <script type="text/javascript" src="ihavecookies.js"></script>
     <script type="text/javascript">
-    var options = {
+    const options = {
         title: '&#x1F36A; Accept Cookies & Privacy Policy?',
         message: 'There are no cookies used on this site, but if there were this message could be customised to provide more details. Click the <strong>accept</strong> button below to see the optional callback in action...',
-        delay: 600,
+        delay: 100,
         expires: 1,
         link: '#privacy',
+        cookieTypes: [
+            {
+                type: 'Analytics',
+                value: 'analytics',
+                description: 'Cookies related to site visits, browser types, etc.'
+            },
+            {
+                type: 'Marketing',
+                value: 'marketing',
+                description: 'Cookies related to marketing, e.g. newsletters, social media, etc'
+            }],
         onAccept: function(){
-            var myPreferences = $.fn.ihavecookies.cookie();
+            var myPreferences = fn_ihavecookies_get_cookie();
             console.log('Yay! The following preferences were saved...');
             console.log(myPreferences);
         },
@@ -24,15 +35,22 @@
         fixedCookieTypeDesc: 'These are essential for the website to work correctly.'
     }
 
-    $(document).ready(function() {
-        $('body').ihavecookies(options);
+    // Without jQuery
+    let ready = (callback) => {
+        if (document.readyState !== "loading") callback();
+        else document.addEventListener("DOMContentLoaded", callback);
+    }
 
-        if ($.fn.ihavecookies.preference('marketing') === true) {
+    ready(() => {
+        /* Do things after DOM has fully loaded */
+        fn_ihavecookies(document.body, options);
+
+        if (fn_ihavecookies_get_preference('marketing') === true) {
             console.log('This should run because marketing is accepted.');
         }
 
-        $('#ihavecookiesBtn').on('click', function(){
-            $('body').ihavecookies(options, 'reinit');
+        document.getElementById('ihavecookiesBtn').addEventListener("click", (e) => {
+            fn_ihavecookies(document.body, options, 'reinit');
         });
     });
 
